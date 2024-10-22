@@ -37,13 +37,30 @@ Public Class Form1
 
     ' Evento Click del Botón Iniciar Sesión
     Private Sub btnIniciarSesion_Click(sender As Object, e As EventArgs) Handles btnIniciarSesion.Click
+        ' Obtener los valores ingresados por el usuario
+        Dim nombreUsuario As String = txtNombreUsuario.Text
+        Dim contrasena As String = txtContrasena.Text
+
+        ' Verificar si los campos están vacíos
+        If String.IsNullOrWhiteSpace(nombreUsuario) Then
+            ' Mostrar mensaje si el campo de correo está vacío
+            Dim mensajeCorreo As String = If(ComboBox1.SelectedItem.ToString() = "English", "Please enter your email.", "Por favor ingrese su correo.")
+            Dim tituloCorreo As String = If(ComboBox1.SelectedItem.ToString() = "English", "Empty Email Field", "Campo de Correo Vacío")
+            MessageBox.Show(mensajeCorreo, tituloCorreo, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return ' Detener la ejecución si el correo está vacío
+        End If
+
+        If String.IsNullOrWhiteSpace(contrasena) Then
+            ' Mostrar mensaje si el campo de contraseña está vacío
+            Dim mensajeContrasena As String = If(ComboBox1.SelectedItem.ToString() = "English", "Please enter your password.", "Por favor ingrese su contraseña.")
+            Dim tituloContrasena As String = If(ComboBox1.SelectedItem.ToString() = "English", "Empty Password Field", "Campo de Contraseña Vacío")
+            MessageBox.Show(mensajeContrasena, tituloContrasena, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return ' Detener la ejecución si la contraseña está vacía
+        End If
+
         Try
             ' Inicializar la conexión dentro del Try
             conexion = New MySqlConnection("Server=localhost;Database=taller;User ID=root;Password=Maju2223;SslMode=None;AllowPublicKeyRetrieval=True;")
-
-            ' Obtener los valores ingresados por el usuario
-            Dim nombreUsuario As String = txtNombreUsuario.Text
-            Dim contrasena As String = txtContrasena.Text
 
             ' Comando SQL para verificar los datos del usuario
             Dim query As String = "SELECT Correo, Tipo FROM usuarios WHERE Correo = @NombreUsuario AND Contraseña = @Contrasena"
