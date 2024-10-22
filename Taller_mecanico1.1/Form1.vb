@@ -26,7 +26,7 @@ Public Class Form1
             Label6.Text = "© Non-commercial product developed by Nikens Pierre and Joao Ureta 2024. All rights reserved."
         Else
             ' Cambiar los textos al español
-            Label1.Text = "Bienvenido a Ultra Mechanica"
+            Label1.Text = "Bienvenido a Ultra Mecánica"
             Label2.Text = "Correo"
             Label3.Text = "Contraseña"
             btnIniciarSesion.Text = "Iniciar Sesión"
