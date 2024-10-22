@@ -65,7 +65,7 @@ Public Class Form3
     End Sub
 
     Private Sub btnBuscar_Click(sender As Object, e As EventArgs) Handles btnBuscar.Click
-
+        'jgjigjfigj
         Dim rut As String = txtRut.Text
 
         If rut = "" Then
