@@ -402,7 +402,7 @@ Partial Class Form3
         Controls.Add(Label1)
         Name = "Form3"
         StartPosition = FormStartPosition.CenterScreen
-        Text = "Form3"
+        Text = "Gestion usuarios"
         CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
