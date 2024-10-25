@@ -89,7 +89,7 @@ Public Class Form1
                 ' Abrir el Form2 y pasar el nombre
                 Dim form2 As New Form2()
                 form2.lblBienvenido.Text = If(ComboBox1.SelectedItem.ToString() = "English", $"Welcome, {nombre}", $"Bienvenido, {nombre}")
-                If tipoUsuario = "Administrador" Then
+                If tipoUsuario = "Administrador" OrElse tipoUsuario = "Gerente" Then
                     form2.btnUsuarios.Enabled = True
                     form2.btnEmpleados.Enabled = True
                 Else
