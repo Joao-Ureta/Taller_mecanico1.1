@@ -20,4 +20,12 @@
     Private Sub btnEmpleados_Click(sender As Object, e As EventArgs) Handles btnEmpleados.Click
 
     End Sub
+
+    Private Sub btnRepuestos_Click(sender As Object, e As EventArgs) Handles btnRepuestos.Click
+
+        'codigo para ir a form4 (gestion usuarios)
+        Form4.Show()
+        Me.Close()
+
+    End Sub
 End Class
