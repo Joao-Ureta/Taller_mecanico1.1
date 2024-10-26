@@ -197,6 +197,10 @@ Public Class Form3
                 txtCorreo.Clear()
                 txtContraseña.Clear()
                 cbxTipo.SelectedIndex = -1 'restablece el comboBox a su estado inicial
+
+                'se actualiza el DataGridView despues de la eliminacion
+                btnVisualizar_Click(sender, e) 'llama a la funcion que refresca la lista de usuarios
+
             Catch ex As Exception
                 MessageBox.Show("Error al guardar los datos: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -268,6 +272,9 @@ Public Class Form3
                             txtCorreo.Clear()
                             txtContraseña.Clear()
                             cbxTipo.SelectedIndex = -1
+
+                            'se actualiza el DataGridView despues de la eliminacion
+                            btnVisualizar_Click(sender, e) 'llama a la funcion que refresca la lista de usuarios
                         Else
                             MessageBox.Show("No se actualizaron datos, verifique que el RUT exista.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         End If
