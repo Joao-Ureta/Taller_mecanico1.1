@@ -312,7 +312,7 @@ Public Class Form4
 
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
 
-        'verifica si se ha seleccionado un rut para eliminar
+        'verifica si se ha seleccionado un id para eliminar
         If String.IsNullOrWhiteSpace(txtID.Text) Then
             MessageBox.Show("Por favor, seleccione un registro para eliminar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return
@@ -325,7 +325,7 @@ Public Class Form4
             Using conn As New MySqlConnection(connectionString)
                 Try
                     conn.Open()
-                    'consulta para eliminar el usuario
+                    'consulta para eliminar el repuesto
                     Dim query As String = "DELETE FROM repuestos WHERE RepuestoID = @RepuestoID"
                     Using cmd As New MySqlCommand(query, conn)
                         cmd.Parameters.AddWithValue("@RepuestoID", txtID.Text)
@@ -343,7 +343,7 @@ Public Class Form4
 
 
                             'se actualiza el DataGridView despues de la eliminacion
-                            btnVisualizar_Click(sender, e) 'llama a la funcion que refresca la lista de usuarios
+                            btnVisualizar_Click(sender, e) 'llama a la funcion que refresca la lista de repuestos
                         Else
                             MessageBox.Show("No se pudo eliminar el repuesto. Verifique que el ID exista en la base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                         End If
