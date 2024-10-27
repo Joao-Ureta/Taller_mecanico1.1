@@ -226,7 +226,7 @@ Public Class Form3
 
     Private Sub CheckModificar_CheckedChanged(sender As Object, e As EventArgs) Handles CheckModificar.CheckedChanged
 
-        'habilita los campos y el boton guardar al marcar checkModificar
+        'habilita los campos y el boton modificar al marcar checkModificar
         If CheckModificar.Checked Then
             btnModificar.Enabled = True
             txtCorreo.Enabled = True
