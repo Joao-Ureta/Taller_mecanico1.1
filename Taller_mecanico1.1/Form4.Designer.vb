@@ -52,10 +52,6 @@ Partial Class Form4
         txtDescripcion = New TextBox()
         lblDescripcion = New Label()
         DataGridView1 = New DataGridView()
-        RUT = New DataGridViewTextBoxColumn()
-        CORREO = New DataGridViewTextBoxColumn()
-        Contraseña = New DataGridViewTextBoxColumn()
-        Tipo = New DataGridViewTextBoxColumn()
         Label1 = New Label()
         btnVolver = New Button()
         MenuStrip1.SuspendLayout()
@@ -401,40 +397,11 @@ Partial Class Form4
         ' DataGridView1
         ' 
         DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridView1.Columns.AddRange(New DataGridViewColumn() {RUT, CORREO, Contraseña, Tipo})
         DataGridView1.Location = New Point(90, 154)
         DataGridView1.Name = "DataGridView1"
         DataGridView1.RowHeadersWidth = 51
         DataGridView1.Size = New Size(804, 207)
         DataGridView1.TabIndex = 13
-        ' 
-        ' RUT
-        ' 
-        RUT.HeaderText = "Rut"
-        RUT.MinimumWidth = 6
-        RUT.Name = "RUT"
-        RUT.Width = 150
-        ' 
-        ' CORREO
-        ' 
-        CORREO.HeaderText = "CORREO"
-        CORREO.MinimumWidth = 6
-        CORREO.Name = "CORREO"
-        CORREO.Width = 250
-        ' 
-        ' Contraseña
-        ' 
-        Contraseña.HeaderText = "Contraseña"
-        Contraseña.MinimumWidth = 6
-        Contraseña.Name = "Contraseña"
-        Contraseña.Width = 150
-        ' 
-        ' Tipo
-        ' 
-        Tipo.HeaderText = "Tipo"
-        Tipo.MinimumWidth = 6
-        Tipo.Name = "Tipo"
-        Tipo.Width = 200
         ' 
         ' Label1
         ' 
@@ -475,7 +442,7 @@ Partial Class Form4
         MainMenuStrip = MenuStrip1
         Name = "Form4"
         StartPosition = FormStartPosition.CenterScreen
-        Text = "Form4"
+        Text = "Gestion de repuestos"
         MenuStrip1.ResumeLayout(False)
         MenuStrip1.PerformLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).EndInit()
@@ -496,10 +463,6 @@ Partial Class Form4
     Friend WithEvents PanelInventario As Panel
     Friend WithEvents Label1 As Label
     Friend WithEvents DataGridView1 As DataGridView
-    Friend WithEvents RUT As DataGridViewTextBoxColumn
-    Friend WithEvents CORREO As DataGridViewTextBoxColumn
-    Friend WithEvents Contraseña As DataGridViewTextBoxColumn
-    Friend WithEvents Tipo As DataGridViewTextBoxColumn
     Friend WithEvents lblDescripcion As Label
     Friend WithEvents txtDescripcion As TextBox
     Friend WithEvents btnVisualizar As Button

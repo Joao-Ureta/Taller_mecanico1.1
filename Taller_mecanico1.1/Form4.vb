@@ -228,14 +228,14 @@ Public Class Form4
         If CheckModificar.Checked OrElse CheckEliminar.Checked Then
             If e.RowIndex >= 0 Then
                 'obtiene la fila seleccionada
-                Dim row As DataGridViewRow = DataGridView1.Rows(e.RowIndex)
+                Dim row = DataGridView1.Rows(e.RowIndex)
 
                 'carga los datos en los textBox
-                txtID.Text = row.Cells("RepuestoID").Value.ToString()
-                txtRepuesto.Text = row.Cells("NombreRepuesto").Value.ToString()
-                txtCantidad.Text = row.Cells("CantidadStock").Value.ToString()
-                txtPrecio.Text = row.Cells("PrecioUnitario").Value.ToString()
-                txtProvedor.Text = row.Cells("Proveedor").Value.ToString()
+                txtID.Text = row.Cells("RepuestoID").Value.ToString
+                txtRepuesto.Text = row.Cells("NombreRepuesto").Value.ToString
+                txtCantidad.Text = row.Cells("CantidadStock").Value.ToString
+                txtPrecio.Text = row.Cells("PrecioUnitario").Value.ToString
+                txtProvedor.Text = row.Cells("Proveedor").Value.ToString
             End If
         End If
     End Sub
