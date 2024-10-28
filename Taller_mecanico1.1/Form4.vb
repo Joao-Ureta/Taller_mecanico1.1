@@ -8,6 +8,22 @@ Public Class Form4
     Private Sub Form4_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Ocultar el PanelInventario al iniciar el formulario
         PanelInventario.Visible = False
+
+        Try
+            'instancia de conexion
+            connection = New MySqlConnection(connectionString)
+
+            connection.Open()
+
+            'funcion para cargar comunas
+            CargarClientes()
+
+        Catch ex As MySqlException
+            'en caso de falla de conexion muestra mensaje de error
+            MessageBox.Show("Error al conectar a la base de datos: " & ex.Message)
+        Finally
+            If connection IsNot Nothing Then connection.Close()
+        End Try
     End Sub
 
     Private Sub btnVolver_Click(sender As Object, e As EventArgs) Handles btnVolver.Click
@@ -21,7 +37,7 @@ Public Class Form4
         ' Oculta todos los paneles primero
         PanelInventario.Visible = False
         ' PanelSolicitud.Visible = False
-        ' PanelGarantia.Visible = False
+        PanelGarantia.Visible = False
         ' PanelVentas.Visible = False
 
         ' Muestra el panel seleccionado
@@ -34,7 +50,7 @@ Public Class Form4
 
     Private Sub btnBuscar_Click(sender As Object, e As EventArgs) Handles btnBuscar.Click
 
-        Dim criterio As String = txtDescripcion.Text
+        Dim criterio = txtDescripcion.Text
 
         If criterio = "" Then
             MessageBox.Show("Por favor, ingrese un ID o descripción.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -43,7 +59,7 @@ Public Class Form4
 
         Using conn As New MySqlConnection(connectionString)
             Try
-                conn.Open()
+                conn.Open
 
                 Dim query As String
                 If IsNumeric(criterio) Then
@@ -60,11 +76,11 @@ Public Class Form4
                     End If
 
                     Dim adapter As New MySqlDataAdapter(cmd)
-                    Dim table As New DataTable()
+                    Dim table As New DataTable
                     adapter.Fill(table)
 
                     If table.Rows.Count > 0 Then
-                        DataGridView1.Columns.Clear()
+                        DataGridView1.Columns.Clear
 
                         ' Genera columnas automáticamente
                         DataGridView1.AutoGenerateColumns = True
@@ -75,7 +91,7 @@ Public Class Form4
                         ' Ajusta el tamaño del DataGridView1 para que ocupe todo el espacio disponible
                         DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
                         DataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
-                        DataGridView1.Refresh()
+                        DataGridView1.Refresh
 
                     Else
                         MessageBox.Show("Repuesto no encontrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -91,20 +107,20 @@ Public Class Form4
 
         Using conn As New MySqlConnection(connectionString)
             Try
-                conn.Open()
+                conn.Open
                 'consulta para seleccionar todos los registros de la tabla usuarios
-                Dim query As String = "SELECT * FROM repuestos"
+                Dim query = "SELECT * FROM repuestos"
 
                 Using cmd As New MySqlCommand(query, conn)
                     Dim adapter As New MySqlDataAdapter(cmd)
-                    Dim table As New DataTable()
+                    Dim table As New DataTable
                     adapter.Fill(table)
 
                     If table.Rows.Count > 0 Then
-                        MessageBox.Show("Total de repuestos encontrados: " & table.Rows.Count.ToString())
+                        MessageBox.Show("Total de repuestos encontrados: " & table.Rows.Count.ToString)
 
                         'borra las columnas anterioressi existen
-                        DataGridView1.Columns.Clear()
+                        DataGridView1.Columns.Clear
 
                         'genera columnas automaticamente
                         DataGridView1.AutoGenerateColumns = True
@@ -114,7 +130,7 @@ Public Class Form4
 
                         'ajusta el tamaño del DataGridView1
                         DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-                        DataGridView1.Refresh()
+                        DataGridView1.Refresh
 
                     Else
                         MessageBox.Show("No hay repuestos registrados en la base de datos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -352,6 +368,217 @@ Public Class Form4
                     MessageBox.Show("Error al eliminar el repuesto: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End Try
             End Using
+        End If
+    End Sub
+
+    Private Sub GarantiaDeRepuestosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GarantiaDeRepuestosToolStripMenuItem.Click
+        ShowPanel(PanelGarantia)
+    End Sub
+
+    Private Sub CargarClientes()
+        Try
+            'consulta para obtener las comunas de la base de datos
+            Dim query As String = "SELECT Rut FROM clientes"
+            Dim command As New MySqlCommand(query, connection)
+
+            'ejecuta y lee la consulta
+            Dim reader As MySqlDataReader = command.ExecuteReader()
+
+            'limpia el combobox
+            cbxCliente.Items.Clear()
+
+            'agregar "seleccione una comuna" como opcion
+            cbxCliente.Items.Add("Seleccione un cliente")
+
+            'agrega las comunas al combobox
+            While reader.Read()
+                cbxCliente.Items.Add(reader("Rut").ToString())
+            End While
+
+            reader.Close()
+
+            'para dejar como primer campo "seleccione comuna"
+            cbxCliente.SelectedIndex = 0
+
+        Catch ex As MySqlException
+            'mensaje para mostrar error en caso de consulta fallida
+            MessageBox.Show("Error en la consulta: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub btnBuscar2_Click(sender As Object, e As EventArgs) Handles btnBuscar2.Click
+
+        Dim criterio = txtDescGarantia.Text
+
+        If criterio = "" Then
+            MessageBox.Show("Por favor, ingrese un ID o descripción.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
+
+        Using conn As New MySqlConnection(connectionString)
+            Try
+                conn.Open()
+
+                Dim query As String
+                If IsNumeric(criterio) Then
+                    query = "SELECT * FROM garantiasrepuestos WHERE GarantiaID = @criterio"
+                Else
+                    query = "SELECT * FROM garantiasrepuestos WHERE NombreRepuesto LIKE @criterio"
+                End If
+
+                Using cmd As New MySqlCommand(query, conn)
+                    If IsNumeric(criterio) Then
+                        cmd.Parameters.AddWithValue("@criterio", criterio)
+                    Else
+                        cmd.Parameters.AddWithValue("@criterio", criterio & "%")
+                    End If
+
+                    Dim adapter As New MySqlDataAdapter(cmd)
+                    Dim table As New DataTable
+                    adapter.Fill(table)
+
+                    If table.Rows.Count > 0 Then
+                        DataGridView2.Columns.Clear()
+
+                        'genera columnas automaticamente
+                        DataGridView2.AutoGenerateColumns = True
+
+                        'asigna el DataSource y refresca
+                        DataGridView2.DataSource = table
+
+                        'ajusta el tamaño del DataGridView2 para que ocupe todo el espacio disponible
+                        DataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+                        DataGridView2.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
+                        DataGridView2.Refresh()
+
+                    Else
+                        MessageBox.Show("ID y/o Descripcion no encontrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End If
+                End Using
+            Catch ex As Exception
+                MessageBox.Show("Error al conectar con la base de datos: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Using
+    End Sub
+
+    Private Sub btnVisualizar2_Click(sender As Object, e As EventArgs) Handles btnVisualizar2.Click
+
+        Using conn As New MySqlConnection(connectionString)
+            Try
+                conn.Open()
+                'consulta para seleccionar todos los registros de la tabla garantiasrepuestos
+                Dim query = "SELECT * FROM garantiasrepuestos"
+
+                Using cmd As New MySqlCommand(query, conn)
+                    Dim adapter As New MySqlDataAdapter(cmd)
+                    Dim table As New DataTable
+                    adapter.Fill(table)
+
+                    If table.Rows.Count > 0 Then
+                        MessageBox.Show("Total de Garantias encontrados: " & table.Rows.Count.ToString)
+
+                        'borra las columnas anteriores si existen
+                        DataGridView2.Columns.Clear()
+
+                        'genera columnas automaticamente
+                        DataGridView2.AutoGenerateColumns = True
+
+                        'asigna el DataSource con todos los registros y refresca
+                        DataGridView2.DataSource = table
+
+                        'ajusta el tamaño del DataGridView2
+                        DataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+                        DataGridView2.Refresh()
+
+                    Else
+                        MessageBox.Show("No hay garantias registradas en la base de datos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    End If
+                End Using
+            Catch ex As Exception
+                MessageBox.Show("Error al conectar con la base de datos: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Using
+    End Sub
+
+    Private Sub chbxIngresar_CheckedChanged(sender As Object, e As EventArgs) Handles chbxIngresar.CheckedChanged
+
+        'habilita los campos y el boton guardar al marcar chbxIngresar
+
+        txtDesc2.Enabled = chbxIngresar.Checked
+        txtDetalle.Enabled = chbxIngresar.Checked
+        cbxCliente.Enabled = chbxIngresar.Checked
+        FecIni.Enabled = chbxIngresar.Checked
+        FecFin.Enabled = chbxIngresar.Checked
+        btnGuardar2.Enabled = chbxIngresar.Checked
+
+    End Sub
+
+    Private Sub btnGuardar2_Click(sender As Object, e As EventArgs) Handles btnGuardar2.Click
+        ' Verifica que todos los campos estén llenos
+        If String.IsNullOrWhiteSpace(txtDesc2.Text) OrElse
+       String.IsNullOrWhiteSpace(txtDetalle.Text) OrElse
+       cbxCliente.SelectedItem Is Nothing Then
+            MessageBox.Show("Por favor, complete todos los campos antes de guardar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        ' Muestra mensaje de confirmación
+        Dim result As DialogResult = MessageBox.Show("¿Está seguro que los datos de ingreso son correctos?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+        ' Si el usuario confirma, se guardan los datos
+        If result = DialogResult.Yes Then
+            Try
+                Using connection As New MySqlConnection(connectionString)
+                    connection.Open()
+                    Dim query As String = "INSERT INTO garantiasrepuestos (NombreRepuesto, DetalleGarantia, Cliente, FechaInicio, FechaFin) VALUES (@NombreRepuesto, @DetalleGarantia, @Cliente, @FechaInicio, @FechaFin)"
+
+                    Using command As New MySqlCommand(query, connection)
+                        ' Obtiene las fechas de los DateTimePicker como objetos Date
+                        Dim fechaInicio As Date = FecIni.Value
+                        Dim fechaFin As Date = FecFin.Value
+
+                        ' Agrega los parámetros a la consulta
+                        command.Parameters.AddWithValue("@NombreRepuesto", txtDesc2.Text)
+                        command.Parameters.AddWithValue("@DetalleGarantia", txtDetalle.Text)
+
+                        ' Obtiene el cliente seleccionado del ComboBox
+                        command.Parameters.AddWithValue("@Cliente", cbxCliente.SelectedItem.ToString())
+
+                        command.Parameters.AddWithValue("@FechaInicio", fechaInicio)
+                        command.Parameters.AddWithValue("@FechaFin", fechaFin)
+
+                        command.ExecuteNonQuery()
+
+                        ' Obtener el ID autoincremental recién insertado
+                        Dim lastInsertedId As Integer = Convert.ToInt32(command.LastInsertedId)
+
+                        ' Actualiza el DataGridView2
+                        btnVisualizar2_Click(sender, e) ' Llama a la función que actualiza el DataGridView
+
+                        ' Selecciona la fila con el nuevo ID generado
+                        For Each row As DataGridViewRow In DataGridView2.Rows
+                            If Convert.ToInt32(row.Cells("GarantiaID").Value) = lastInsertedId Then
+                                row.Selected = True
+                                DataGridView2.FirstDisplayedScrollingRowIndex = row.Index ' Desplaza el DataGridView2 hasta el ítem seleccionado
+                                Exit For
+                            End If
+                        Next
+                    End Using
+                End Using
+
+                MessageBox.Show("Datos guardados exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                ' Limpia los campos después de guardado exitoso
+                txtID2.Clear()
+                txtDesc2.Clear()
+                txtDetalle.Clear()
+                cbxCliente.SelectedIndex = -1 ' Limpia el ComboBox
+                FecIni.Value = DateTime.Now ' Restablece los DateTimePicker a la fecha actual
+                FecFin.Value = DateTime.Now
+
+            Catch ex As Exception
+                MessageBox.Show("Error al guardar los datos: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
         End If
     End Sub
 End Class

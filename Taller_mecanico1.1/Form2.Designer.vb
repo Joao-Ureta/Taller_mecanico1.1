@@ -25,6 +25,7 @@ Partial Class Form2
         Label1 = New Label()
         lblBienvenido = New Label()
         Panel1 = New Panel()
+        btnClientes = New Button()
         btnEmpleados = New Button()
         btnServicios = New Button()
         btnSieniestros = New Button()
@@ -62,6 +63,7 @@ Partial Class Form2
         ' Panel1
         ' 
         Panel1.BorderStyle = BorderStyle.Fixed3D
+        Panel1.Controls.Add(btnClientes)
         Panel1.Controls.Add(btnEmpleados)
         Panel1.Controls.Add(btnServicios)
         Panel1.Controls.Add(btnSieniestros)
@@ -69,8 +71,23 @@ Partial Class Form2
         Panel1.Controls.Add(btnUsuarios)
         Panel1.Location = New Point(30, 166)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(338, 539)
+        Panel1.Size = New Size(338, 619)
         Panel1.TabIndex = 13
+        ' 
+        ' btnClientes
+        ' 
+        btnClientes.BackColor = Color.DimGray
+        btnClientes.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnClientes.ForeColor = Color.White
+        btnClientes.Image = My.Resources.Resources.clientes
+        btnClientes.ImageAlign = ContentAlignment.MiddleRight
+        btnClientes.Location = New Point(54, 239)
+        btnClientes.Name = "btnClientes"
+        btnClientes.Padding = New Padding(0, 0, 30, 0)
+        btnClientes.Size = New Size(227, 61)
+        btnClientes.TabIndex = 5
+        btnClientes.Text = "Clientes"
+        btnClientes.UseVisualStyleBackColor = False
         ' 
         ' btnEmpleados
         ' 
@@ -94,7 +111,7 @@ Partial Class Form2
         btnServicios.ForeColor = Color.White
         btnServicios.Image = My.Resources.Resources.servicios
         btnServicios.ImageAlign = ContentAlignment.MiddleRight
-        btnServicios.Location = New Point(54, 432)
+        btnServicios.Location = New Point(54, 515)
         btnServicios.Name = "btnServicios"
         btnServicios.Padding = New Padding(0, 0, 30, 0)
         btnServicios.Size = New Size(227, 61)
@@ -109,7 +126,7 @@ Partial Class Form2
         btnSieniestros.ForeColor = Color.White
         btnSieniestros.Image = My.Resources.Resources.siniestros
         btnSieniestros.ImageAlign = ContentAlignment.MiddleRight
-        btnSieniestros.Location = New Point(54, 338)
+        btnSieniestros.Location = New Point(54, 421)
         btnSieniestros.Name = "btnSieniestros"
         btnSieniestros.Padding = New Padding(0, 0, 30, 0)
         btnSieniestros.Size = New Size(227, 61)
@@ -124,7 +141,7 @@ Partial Class Form2
         btnRepuestos.ForeColor = Color.White
         btnRepuestos.Image = My.Resources.Resources.repuestos
         btnRepuestos.ImageAlign = ContentAlignment.MiddleRight
-        btnRepuestos.Location = New Point(54, 243)
+        btnRepuestos.Location = New Point(54, 326)
         btnRepuestos.Name = "btnRepuestos"
         btnRepuestos.Padding = New Padding(0, 0, 30, 0)
         btnRepuestos.Size = New Size(227, 61)
@@ -161,7 +178,7 @@ Partial Class Form2
         ' 
         PictureBox1.BorderStyle = BorderStyle.Fixed3D
         PictureBox1.Image = My.Resources.Resources.logo
-        PictureBox1.Location = New Point(399, 214)
+        PictureBox1.Location = New Point(399, 279)
         PictureBox1.Name = "PictureBox1"
         PictureBox1.Size = New Size(551, 359)
         PictureBox1.TabIndex = 15
@@ -174,7 +191,7 @@ Partial Class Form2
         btnSalir.ForeColor = Color.White
         btnSalir.Image = My.Resources.Resources.cerrar_sesion
         btnSalir.ImageAlign = ContentAlignment.MiddleRight
-        btnSalir.Location = New Point(727, 644)
+        btnSalir.Location = New Point(727, 781)
         btnSalir.Name = "btnSalir"
         btnSalir.Padding = New Padding(0, 0, 15, 0)
         btnSalir.Size = New Size(223, 52)
@@ -187,7 +204,7 @@ Partial Class Form2
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.FromArgb(CByte(35), CByte(35), CByte(35))
-        ClientSize = New Size(976, 717)
+        ClientSize = New Size(976, 860)
         Controls.Add(btnSalir)
         Controls.Add(PictureBox1)
         Controls.Add(Label2)
@@ -214,4 +231,5 @@ Partial Class Form2
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents btnSalir As Button
     Friend WithEvents btnEmpleados As Button
+    Friend WithEvents btnClientes As Button
 End Class
