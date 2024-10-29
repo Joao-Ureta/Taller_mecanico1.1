@@ -82,13 +82,13 @@ Public Class Form4
                     If table.Rows.Count > 0 Then
                         DataGridView1.Columns.Clear
 
-                        ' Genera columnas automáticamente
+                        'genera columnas automaticamente
                         DataGridView1.AutoGenerateColumns = True
 
-                        ' Asigna el DataSource y refresca
+                        'asigna el DataSource y refresca
                         DataGridView1.DataSource = table
 
-                        ' Ajusta el tamaño del DataGridView1 para que ocupe todo el espacio disponible
+                        'ajusta el tamaño del DataGridView1 para que ocupe todo el espacio disponible
                         DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
                         DataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
                         DataGridView1.Refresh
@@ -119,7 +119,7 @@ Public Class Form4
                     If table.Rows.Count > 0 Then
                         MessageBox.Show("Total de repuestos encontrados: " & table.Rows.Count.ToString)
 
-                        'borra las columnas anterioressi existen
+                        'borra las columnas anteriores si existen
                         DataGridView1.Columns.Clear
 
                         'genera columnas automaticamente
@@ -514,7 +514,7 @@ Public Class Form4
     End Sub
 
     Private Sub btnGuardar2_Click(sender As Object, e As EventArgs) Handles btnGuardar2.Click
-        ' Verifica que todos los campos estén llenos
+        'verifica que todos los campos esten llenos
         If String.IsNullOrWhiteSpace(txtDesc2.Text) OrElse
        String.IsNullOrWhiteSpace(txtDetalle.Text) OrElse
        cbxCliente.SelectedItem Is Nothing Then
@@ -522,10 +522,10 @@ Public Class Form4
             Return
         End If
 
-        ' Muestra mensaje de confirmación
+        'muestra mensaje de confirmacion
         Dim result As DialogResult = MessageBox.Show("¿Está seguro que los datos de ingreso son correctos?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
-        ' Si el usuario confirma, se guardan los datos
+        'si el usuario confirma, se guardan los datos
         If result = DialogResult.Yes Then
             Try
                 Using connection As New MySqlConnection(connectionString)
@@ -533,15 +533,15 @@ Public Class Form4
                     Dim query As String = "INSERT INTO garantiasrepuestos (NombreRepuesto, DetalleGarantia, Cliente, FechaInicio, FechaFin) VALUES (@NombreRepuesto, @DetalleGarantia, @Cliente, @FechaInicio, @FechaFin)"
 
                     Using command As New MySqlCommand(query, connection)
-                        ' Obtiene las fechas de los DateTimePicker como objetos Date
+                        'obtiene las fechas de los DateTimePicker como objetos Date
                         Dim fechaInicio As Date = FecIni.Value
                         Dim fechaFin As Date = FecFin.Value
 
-                        ' Agrega los parámetros a la consulta
+                        'agrega los parametros a la consulta
                         command.Parameters.AddWithValue("@NombreRepuesto", txtDesc2.Text)
                         command.Parameters.AddWithValue("@DetalleGarantia", txtDetalle.Text)
 
-                        ' Obtiene el cliente seleccionado del ComboBox
+                        'obtiene el cliente seleccionado del ComboBox
                         command.Parameters.AddWithValue("@Cliente", cbxCliente.SelectedItem.ToString())
 
                         command.Parameters.AddWithValue("@FechaInicio", fechaInicio)
@@ -549,17 +549,17 @@ Public Class Form4
 
                         command.ExecuteNonQuery()
 
-                        ' Obtener el ID autoincremental recién insertado
+                        'obtener el ID autoincremental recien insertado
                         Dim lastInsertedId As Integer = Convert.ToInt32(command.LastInsertedId)
 
-                        ' Actualiza el DataGridView2
-                        btnVisualizar2_Click(sender, e) ' Llama a la función que actualiza el DataGridView
+                        'actualiza el DataGridView2
+                        btnVisualizar2_Click(sender, e) 'llama a la funcion que actualiza el DataGridView2
 
-                        ' Selecciona la fila con el nuevo ID generado
+                        'selecciona la fila con el nuevo ID generado
                         For Each row As DataGridViewRow In DataGridView2.Rows
                             If Convert.ToInt32(row.Cells("GarantiaID").Value) = lastInsertedId Then
                                 row.Selected = True
-                                DataGridView2.FirstDisplayedScrollingRowIndex = row.Index ' Desplaza el DataGridView2 hasta el ítem seleccionado
+                                DataGridView2.FirstDisplayedScrollingRowIndex = row.Index 'desplaza el DataGridView2 hasta el ítem seleccionado
                                 Exit For
                             End If
                         Next
@@ -568,16 +568,167 @@ Public Class Form4
 
                 MessageBox.Show("Datos guardados exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                ' Limpia los campos después de guardado exitoso
+                'limpia los campos despues de guardado exitoso
                 txtID2.Clear()
                 txtDesc2.Clear()
                 txtDetalle.Clear()
-                cbxCliente.SelectedIndex = -1 ' Limpia el ComboBox
-                FecIni.Value = DateTime.Now ' Restablece los DateTimePicker a la fecha actual
+                cbxCliente.SelectedIndex = -1 'limpia el ComboBox
+                FecIni.Value = DateTime.Now 'restablece los DateTimePicker a la fecha actual
                 FecFin.Value = DateTime.Now
 
             Catch ex As Exception
                 MessageBox.Show("Error al guardar los datos: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End If
+    End Sub
+
+    Private Sub chbxModificar_CheckedChanged(sender As Object, e As EventArgs) Handles chbxModificar.CheckedChanged
+
+        'habilita los campos y el botón modificar al marcar chbxModificar
+        txtDesc2.Enabled = chbxModificar.Checked
+        txtDetalle.Enabled = chbxModificar.Checked
+        cbxCliente.Enabled = chbxModificar.Checked
+        FecIni.Enabled = chbxModificar.Checked
+        FecFin.Enabled = chbxModificar.Checked
+        btnModificar2.Enabled = chbxModificar.Checked
+    End Sub
+
+    'se carga los datos seleccionados en el DataGridView a los campos de texto y ComboBox
+    Private Sub DataGridView2_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView2.CellClick
+        'verifica si el chbxModificar o el chbxEliminar están activados
+        If chbxModificar.Checked OrElse chbxEliminar.Checked Then
+            If e.RowIndex >= 0 Then
+                'obtiene la fila seleccionada
+                Dim row = DataGridView2.Rows(e.RowIndex)
+
+                'carga los datos en los TextBox y ComboBox
+                txtID2.Text = row.Cells("GarantiaID").Value.ToString()
+                txtDesc2.Text = row.Cells("NombreRepuesto").Value.ToString()
+                txtDetalle.Text = row.Cells("DetalleGarantia").Value.ToString()
+                cbxCliente.Text = row.Cells("Cliente").Value.ToString()
+                FecIni.Value = DateTime.Parse(row.Cells("FechaInicio").Value.ToString())
+                FecFin.Value = DateTime.Parse(row.Cells("FechaFin").Value.ToString())
+            End If
+        End If
+    End Sub
+
+    Private Sub btnModificar2_Click(sender As Object, e As EventArgs) Handles btnModificar2.Click
+        'verifica si no hay un ítem seleccionado en el DataGridView2
+        If String.IsNullOrWhiteSpace(txtID2.Text) Then
+            MessageBox.Show("Por favor, seleccione un ítem de la lista para modificar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return 'evita que el código continúe si no hay selección
+        End If
+
+        'verifica que todos los campos esten llenos
+        If String.IsNullOrWhiteSpace(txtDesc2.Text) OrElse
+       String.IsNullOrWhiteSpace(txtDetalle.Text) OrElse
+       String.IsNullOrWhiteSpace(cbxCliente.Text) OrElse
+       FecIni.Value = Nothing OrElse
+       FecFin.Value = Nothing Then
+            MessageBox.Show("Por favor, complete todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return
+        End If
+
+        'muestra mensaje de confirmacion
+        Dim result As DialogResult = MessageBox.Show("¿Está seguro que los datos modificados son correctos?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+        'si el usuario confirma, se modifican los datos
+        If result = DialogResult.Yes Then
+            Try
+                Using connection As New MySqlConnection(connectionString)
+                    connection.Open()
+                    'consulta SQL para modificar el registro en la tabla garantiasrepuestos
+                    Dim query As String = "UPDATE garantiasrepuestos SET NombreRepuesto = @NombreRepuesto, DetalleGarantia = @DetalleGarantia, Cliente = @Cliente, FechaInicio = @FechaInicio, FechaFin = @FechaFin WHERE GarantiaID = @GarantiaID"
+                    Using command As New MySqlCommand(query, connection)
+                        'se asignan los parametros con los valores de los controles
+                        command.Parameters.AddWithValue("@GarantiaID", txtID2.Text)
+                        command.Parameters.AddWithValue("@NombreRepuesto", txtDesc2.Text)
+                        command.Parameters.AddWithValue("@DetalleGarantia", txtDetalle.Text)
+                        command.Parameters.AddWithValue("@Cliente", cbxCliente.Text)
+                        command.Parameters.AddWithValue("@FechaInicio", FecIni.Value)
+                        command.Parameters.AddWithValue("@FechaFin", FecFin.Value)
+                        command.ExecuteNonQuery()
+                    End Using
+                End Using
+
+                MessageBox.Show("Garantía de repuesto modificada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                'se actualiza el DataGridView2
+                btnVisualizar2_Click(sender, e) 'llama a la funcion que refresca el DataGridView2
+
+                'busca el registro modificado en el DataGridView2 en base al ID
+                For Each row As DataGridViewRow In DataGridView2.Rows
+                    ' Compara valores numéricos en lugar de cadenas
+                    If Convert.ToInt32(row.Cells("GarantiaID").Value) = Convert.ToInt32(txtID2.Text) Then
+                        row.Selected = True
+                        DataGridView2.FirstDisplayedScrollingRowIndex = row.Index 'se posiciona en el item seleccionado
+                        Exit For
+                    End If
+                Next
+
+
+                'limpia los campos despues de la modificacion
+                txtID2.Clear()
+                txtDesc2.Clear()
+                txtDetalle.Clear()
+                cbxCliente.SelectedIndex = -1 'desmarcar selección de cliente
+                FecIni.Value = DateTime.Now
+                FecFin.Value = DateTime.Now
+
+            Catch ex As Exception
+                MessageBox.Show("Error al modificar los datos: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End If
+    End Sub
+
+    Private Sub chbxEliminar_CheckedChanged(sender As Object, e As EventArgs) Handles chbxEliminar.CheckedChanged
+        'habilita el boton guardar al marcar checkEliminar
+        If chbxEliminar.Checked Then
+            btnEliminar2.Enabled = True
+        Else
+            btnEliminar2.Enabled = False
+        End If
+    End Sub
+
+    Private Sub btnEliminar2_Click(sender As Object, e As EventArgs) Handles btnEliminar2.Click
+        ' Verifica si no hay un ítem seleccionado en el DataGridView2
+        If String.IsNullOrWhiteSpace(txtID2.Text) Then
+            MessageBox.Show("Por favor, seleccione un ítem de la lista para eliminar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return ' Evita que el código continúe si no hay selección
+        End If
+
+        ' Muestra mensaje de confirmación
+        Dim result As DialogResult = MessageBox.Show("¿Está seguro que desea eliminar este registro?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+        ' Si el usuario confirma, se elimina el registro
+        If result = DialogResult.Yes Then
+            Try
+                Using connection As New MySqlConnection(connectionString)
+                    connection.Open()
+                    ' Consulta SQL para eliminar el registro en la tabla garantiasrepuestos
+                    Dim query As String = "DELETE FROM garantiasrepuestos WHERE GarantiaID = @GarantiaID"
+                    Using command As New MySqlCommand(query, connection)
+                        ' Se asigna el parámetro con el valor del campo GarantiaID
+                        command.Parameters.AddWithValue("@GarantiaID", txtID2.Text)
+                        command.ExecuteNonQuery()
+                    End Using
+                End Using
+
+                MessageBox.Show("Registro eliminado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                ' Se actualiza el DataGridView2
+                btnVisualizar2_Click(sender, e) ' Llama a la función que refresca el DataGridView2
+
+                ' Limpia los campos después de la eliminación
+                txtID2.Clear()
+                txtDesc2.Clear()
+                txtDetalle.Clear()
+                cbxCliente.SelectedIndex = -1 ' Desmarca selección de cliente
+                FecIni.Value = DateTime.Now
+                FecFin.Value = DateTime.Now
+
+            Catch ex As Exception
+                MessageBox.Show("Error al eliminar el registro: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End If
     End Sub

@@ -60,6 +60,7 @@ Partial Class Form4
         Label1 = New Label()
         btnVolver = New Button()
         PanelGarantia = New Panel()
+        cbxCliente = New ComboBox()
         FecFin = New DateTimePicker()
         FecIni = New DateTimePicker()
         btnEliminar2 = New Button()
@@ -89,7 +90,6 @@ Partial Class Form4
         FechaFin = New DataGridViewTextBoxColumn()
         lblIdDesc = New Label()
         Label2 = New Label()
-        cbxCliente = New ComboBox()
         MenuStrip1.SuspendLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         PanelInventario.SuspendLayout()
@@ -535,6 +535,15 @@ Partial Class Form4
         PanelGarantia.TabIndex = 19
         PanelGarantia.Visible = False
         ' 
+        ' cbxCliente
+        ' 
+        cbxCliente.Enabled = False
+        cbxCliente.FormattingEnabled = True
+        cbxCliente.Location = New Point(725, 571)
+        cbxCliente.Name = "cbxCliente"
+        cbxCliente.Size = New Size(227, 28)
+        cbxCliente.TabIndex = 41
+        ' 
         ' FecFin
         ' 
         FecFin.CustomFormat = """yyyy-MM-dd"""
@@ -568,7 +577,7 @@ Partial Class Form4
         btnEliminar2.Padding = New Padding(0, 0, 30, 0)
         btnEliminar2.Size = New Size(221, 61)
         btnEliminar2.TabIndex = 38
-        btnEliminar2.Text = "Guardar"
+        btnEliminar2.Text = "Eliminar"
         btnEliminar2.UseVisualStyleBackColor = False
         ' 
         ' btnModificar2
@@ -843,15 +852,6 @@ Partial Class Form4
         Label2.Size = New Size(515, 56)
         Label2.TabIndex = 13
         Label2.Text = "Garantia de repuestos"
-        ' 
-        ' cbxCliente
-        ' 
-        cbxCliente.Enabled = False
-        cbxCliente.FormattingEnabled = True
-        cbxCliente.Location = New Point(725, 571)
-        cbxCliente.Name = "cbxCliente"
-        cbxCliente.Size = New Size(227, 28)
-        cbxCliente.TabIndex = 41
         ' 
         ' Form4
         ' 
