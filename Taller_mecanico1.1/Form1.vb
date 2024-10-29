@@ -43,7 +43,6 @@ Public Class Form1
 
         ' Verificar si los campos están vacíos
         If String.IsNullOrWhiteSpace(nombreUsuario) Then
-            ' Mostrar mensaje si el campo de correo está vacío
             Dim mensajeCorreo As String = If(ComboBox1.SelectedItem.ToString() = "English", "Please enter your email.", "Por favor ingrese su correo.")
             Dim tituloCorreo As String = If(ComboBox1.SelectedItem.ToString() = "English", "Empty Email Field", "Campo de Correo Vacío")
             MessageBox.Show(mensajeCorreo, tituloCorreo, MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -51,7 +50,6 @@ Public Class Form1
         End If
 
         If String.IsNullOrWhiteSpace(contrasena) Then
-            ' Mostrar mensaje si el campo de contraseña está vacío
             Dim mensajeContrasena As String = If(ComboBox1.SelectedItem.ToString() = "English", "Please enter your password.", "Por favor ingrese su contraseña.")
             Dim tituloContrasena As String = If(ComboBox1.SelectedItem.ToString() = "English", "Empty Password Field", "Campo de Contraseña Vacío")
             MessageBox.Show(mensajeContrasena, tituloContrasena, MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -59,7 +57,7 @@ Public Class Form1
         End If
 
         Try
-            ' Inicializar la conexión dentro del Try
+            ' Inicializar la conexión
             conexion = New MySqlConnection("Server=localhost;Database=taller;User ID=root;Password=Maju2223;SslMode=None;AllowPublicKeyRetrieval=True;")
 
             ' Comando SQL para verificar los datos del usuario
@@ -76,19 +74,25 @@ Public Class Form1
             ' Ejecutar el comando
             Dim lector As MySqlDataReader = comando.ExecuteReader()
 
-            ' Verificar si el lector tiene filas (es decir, si se encontró un usuario)
+            ' Verificar si el lector tiene filas (usuario encontrado)
             If lector.HasRows Then
                 lector.Read() ' Leer los datos
                 Dim nombre As String = lector("Correo").ToString()
-                Dim tipoUsuario As String = lector("Tipo").ToString() 'obtener el tipo de usuario
+                Dim tipoUsuario As String = lector("Tipo").ToString() ' Obtener el tipo de usuario
 
                 ' Cerrar el lector y la conexión
                 lector.Close()
                 conexion.Close()
 
-                ' Abrir el Form2 y pasar el nombre
+                ' Abrir el Form2 y pasar el tipo de usuario
                 Dim form2 As New Form2()
+                form2.TipoUsuario = tipoUsuario ' Asignar el tipo de usuario a la propiedad en Form2
+
+
+                ' Configurar el mensaje de bienvenida
                 form2.lblBienvenido.Text = If(ComboBox1.SelectedItem.ToString() = "English", $"Welcome, {nombre}", $"Bienvenido, {nombre}")
+
+                ' Habilitar o deshabilitar botones según el tipo de usuario
                 If tipoUsuario = "Administrador" OrElse tipoUsuario = "Gerente" Then
                     form2.btnUsuarios.Enabled = True
                     form2.btnEmpleados.Enabled = True
@@ -96,20 +100,16 @@ Public Class Form1
                     form2.btnUsuarios.Enabled = False
                     form2.btnEmpleados.Enabled = False
                 End If
-                form2.StartPosition = FormStartPosition.CenterScreen ' Asegurar que aparezca centrado
-                form2.Show() 'mostrar el formulario
 
-                ' Ocultar el Form1 
+                ' Mostrar Form2 centrado
+                form2.StartPosition = FormStartPosition.CenterScreen
+                form2.Show()
+
+                ' Ocultar el Form1
                 Me.Hide()
             Else
-                ' Si no se encontró ningún usuario, mostrar mensaje de error
-                Dim mensajeError As String
-                If ComboBox1.SelectedItem.ToString() = "English" Then
-                    mensajeError = "User does not exist or password is incorrect."
-                Else
-                    mensajeError = "Usuario inexistente o contraseña incorrecta"
-                End If
-
+                ' Usuario no encontrado
+                Dim mensajeError As String = If(ComboBox1.SelectedItem.ToString() = "English", "User does not exist or password is incorrect.", "Usuario inexistente o contraseña incorrecta")
                 Dim tituloError As String = If(ComboBox1.SelectedItem.ToString() = "English", "Login Error", "Error de inicio de sesión")
                 MessageBox.Show(mensajeError, tituloError, MessageBoxButtons.OK, MessageBoxIcon.Error)
 
@@ -121,7 +121,7 @@ Public Class Form1
             ' Mostrar mensaje de error si algo falla
             MessageBox.Show("Error en la conexión o consulta: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
-            ' Asegurar que la conexión se cierre en caso de error
+            ' Asegurar que la conexión se cierre
             If conexion IsNot Nothing AndAlso conexion.State = ConnectionState.Open Then
                 conexion.Close()
             End If
