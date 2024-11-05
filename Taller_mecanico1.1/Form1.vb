@@ -3,6 +3,7 @@
 Public Class Form1
     ' Declarar la conexión sin inicializarla
     Dim conexion As MySqlConnection
+    Public Property TipoUsuario As String
 
     ' Evento Load del Formulario
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -87,7 +88,6 @@ Public Class Form1
                 ' Abrir el Form2 y pasar el tipo de usuario
                 Dim form2 As New Form2()
                 form2.TipoUsuario = tipoUsuario ' Asignar el tipo de usuario a la propiedad en Form2
-
 
                 ' Configurar el mensaje de bienvenida
                 form2.lblBienvenido.Text = If(ComboBox1.SelectedItem.ToString() = "English", $"Welcome, {nombre}", $"Bienvenido, {nombre}")

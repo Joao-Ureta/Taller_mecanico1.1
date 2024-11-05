@@ -2,6 +2,8 @@
 
 Public Class Form4
 
+    ' Propiedad para almacenar el tipo de usuario
+    Public Property TipoUsuario As String
     Dim connectionString As String = "Server=localhost;Database=taller;User ID=root;Password=Maju2223;SslMode=None;AllowPublicKeyRetrieval=True;"
     Private connection As MySqlConnection
 
@@ -26,9 +28,20 @@ Public Class Form4
         End Try
     End Sub
 
+
+
+
     Private Sub btnVolver_Click(sender As Object, e As EventArgs) Handles btnVolver.Click
-        ' Código para volver a Form2 (menú)
-        Form2.Show()
+        ' Crear una nueva instancia de Form2
+        Dim form2 As New Form2()
+
+        ' Pasar el tipo de usuario al Form2
+        form2.TipoUsuario = Me.TipoUsuario ' Asumiendo que este formulario tiene acceso al tipo de usuario
+
+        ' Mostrar Form2
+        form2.Show()
+
+        ' Cerrar el formulario actual
         Me.Close()
     End Sub
 
@@ -240,18 +253,22 @@ Public Class Form4
 
     'se carga los datos seleccionados en el DataGridView a los campos de texto y ComboBox
     Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
-        'verifica si el CheckModificar o el CheckEliminar estan activados
+        ' Verifica si el CheckModificar o el CheckEliminar están activados
         If CheckModificar.Checked OrElse CheckEliminar.Checked Then
             If e.RowIndex >= 0 Then
-                'obtiene la fila seleccionada
+                ' Obtiene la fila seleccionada
                 Dim row = DataGridView1.Rows(e.RowIndex)
 
-                'carga los datos en los textBox
-                txtID.Text = row.Cells("RepuestoID").Value.ToString
-                txtRepuesto.Text = row.Cells("NombreRepuesto").Value.ToString
-                txtCantidad.Text = row.Cells("CantidadStock").Value.ToString
-                txtPrecio.Text = row.Cells("PrecioUnitario").Value.ToString
-                txtProvedor.Text = row.Cells("Proveedor").Value.ToString
+                ' Carga los datos en los TextBox
+                txtID.Text = row.Cells("RepuestoID").Value.ToString()
+                txtRepuesto.Text = row.Cells("NombreRepuesto").Value.ToString()
+                txtCantidad.Text = row.Cells("CantidadStock").Value.ToString()
+
+                ' Convierte el PrecioUnitario a Decimal, luego a Integer, y finalmente lo convierte a String
+                Dim precioUnitarioDecimal As Decimal = Convert.ToDecimal(row.Cells("PrecioUnitario").Value)
+                txtPrecio.Text = CInt(precioUnitarioDecimal).ToString() ' Convertir a Integer y luego a String
+
+                txtProvedor.Text = row.Cells("Proveedor").Value.ToString()
             End If
         End If
     End Sub
@@ -276,6 +293,14 @@ Public Class Form4
             Try
                 Using connection As New MySqlConnection(connectionString)
                     connection.Open()
+
+                    'Convertir precioUnitario de decimal a integer antes de usarlo
+                    Dim precioUnitario As Integer
+                    If Not Integer.TryParse(txtPrecio.Text, precioUnitario) Then
+                        MessageBox.Show("El precio debe ser un número entero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Return
+                    End If
+
                     'consulta SQL para modificar el registro en la tabla repuestos
                     Dim query As String = "UPDATE repuestos SET NombreRepuesto = @NombreRepuesto, CantidadStock = @CantidadStock, PrecioUnitario = @PrecioUnitario, Proveedor = @Proveedor WHERE RepuestoID = @RepuestoID"
                     Using command As New MySqlCommand(query, connection)
