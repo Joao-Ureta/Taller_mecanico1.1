@@ -753,7 +753,7 @@ Partial Class Form4
         btnVisualizar2.Padding = New Padding(0, 0, 20, 0)
         btnVisualizar2.Size = New Size(149, 36)
         btnVisualizar2.TabIndex = 20
-        btnVisualizar2.Text = "Visualizar"
+        btnVisualizar2.Text = "Ver todo"
         btnVisualizar2.UseVisualStyleBackColor = False
         ' 
         ' btnBuscar2

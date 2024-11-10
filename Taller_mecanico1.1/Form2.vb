@@ -42,4 +42,10 @@
         Form4.Show()
         Me.Close()
     End Sub
+
+    Private Sub btnSieniestros_Click(sender As Object, e As EventArgs) Handles btnSieniestros.Click
+        ' Código para ir a Form5 (gestión siniestros)
+        Form5.Show()
+        Me.Close()
+    End Sub
 End Class
