@@ -40,13 +40,13 @@ Partial Class Form5
         lblCliente = New Label()
         Label1 = New Label()
         Panel2 = New Panel()
+        cbxCompañia = New ComboBox()
         btnModificar = New Button()
         btnGuardar = New Button()
         cbxSeguro = New ComboBox()
         lblSeguro = New Label()
         txtCliente2 = New TextBox()
         lblCliente2 = New Label()
-        txtCompañia = New TextBox()
         lblCompañia = New Label()
         FecSiniestro = New DateTimePicker()
         lblFecha = New Label()
@@ -182,9 +182,9 @@ Partial Class Form5
         Label2.ForeColor = Color.White
         Label2.Location = New Point(175, 54)
         Label2.Name = "Label2"
-        Label2.Size = New Size(138, 17)
+        Label2.Size = New Size(157, 17)
         Label2.TabIndex = 21
-        Label2.Text = "(Rut o nombre cliente)"
+        Label2.Text = "(Ingrese un rut de cliente)"
         ' 
         ' btnBuscar
         ' 
@@ -233,13 +233,13 @@ Partial Class Form5
         ' Panel2
         ' 
         Panel2.BorderStyle = BorderStyle.Fixed3D
+        Panel2.Controls.Add(cbxCompañia)
         Panel2.Controls.Add(btnModificar)
         Panel2.Controls.Add(btnGuardar)
         Panel2.Controls.Add(cbxSeguro)
         Panel2.Controls.Add(lblSeguro)
         Panel2.Controls.Add(txtCliente2)
         Panel2.Controls.Add(lblCliente2)
-        Panel2.Controls.Add(txtCompañia)
         Panel2.Controls.Add(lblCompañia)
         Panel2.Controls.Add(FecSiniestro)
         Panel2.Controls.Add(lblFecha)
@@ -255,6 +255,15 @@ Partial Class Form5
         Panel2.Name = "Panel2"
         Panel2.Size = New Size(537, 515)
         Panel2.TabIndex = 16
+        ' 
+        ' cbxCompañia
+        ' 
+        cbxCompañia.Enabled = False
+        cbxCompañia.FormattingEnabled = True
+        cbxCompañia.Location = New Point(170, 286)
+        cbxCompañia.Name = "cbxCompañia"
+        cbxCompañia.Size = New Size(293, 28)
+        cbxCompañia.TabIndex = 51
         ' 
         ' btnModificar
         ' 
@@ -327,15 +336,6 @@ Partial Class Form5
         lblCliente2.Size = New Size(83, 28)
         lblCliente2.TabIndex = 46
         lblCliente2.Text = "Cliente:"
-        ' 
-        ' txtCompañia
-        ' 
-        txtCompañia.Enabled = False
-        txtCompañia.Location = New Point(170, 286)
-        txtCompañia.Multiline = True
-        txtCompañia.Name = "txtCompañia"
-        txtCompañia.Size = New Size(290, 28)
-        txtCompañia.TabIndex = 45
         ' 
         ' lblCompañia
         ' 
@@ -544,7 +544,6 @@ Partial Class Form5
     Friend WithEvents FecSiniestro As DateTimePicker
     Friend WithEvents lblCompañia As Label
     Friend WithEvents lblCliente2 As Label
-    Friend WithEvents txtCompañia As TextBox
     Friend WithEvents txtCliente2 As TextBox
     Friend WithEvents cbxSeguro As ComboBox
     Friend WithEvents lblSeguro As Label
@@ -552,4 +551,5 @@ Partial Class Form5
     Friend WithEvents btnModificar As Button
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents btnVolver As Button
+    Friend WithEvents cbxCompañia As ComboBox
 End Class
