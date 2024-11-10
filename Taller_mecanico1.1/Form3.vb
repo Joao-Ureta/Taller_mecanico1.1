@@ -2,9 +2,7 @@
 
 Public Class Form3
 
-    ' Propiedad para almacenar el tipo de usuario
-    Public Property TipoUsuario As String
-    Dim connectionString As String = "Server=localhost;Database=taller;User ID=root;Password=Maju2223;SslMode=None;AllowPublicKeyRetrieval=True;"
+    Dim connectionString As String = "Server=localhost;Database=taller;User ID=root;Password=Hola.,123;SslMode=None;AllowPublicKeyRetrieval=True;"
     Private connection As MySqlConnection
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -60,16 +58,8 @@ Public Class Form3
 
     Private Sub btnVolver_Click(sender As Object, e As EventArgs) Handles btnVolver.Click
 
-        ' Crear una nueva instancia de Form2
-        Dim form2 As New Form2()
-
-        ' Pasar el tipo de usuario al Form2
-        form2.TipoUsuario = Me.TipoUsuario ' Asumiendo que este formulario tiene acceso al tipo de usuario
-
-        ' Mostrar Form2
-        form2.Show()
-
-        ' Cerrar el formulario actual
+        'codigo para volver a form2 (menu)
+        Form2.Instance.Show()
         Me.Close()
 
     End Sub
