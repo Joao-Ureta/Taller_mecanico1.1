@@ -29,7 +29,6 @@ Partial Class Form4
         SolicitudDeRepuestosToolStripMenuItem = New ToolStripMenuItem()
         VentasToolStripMenuItem = New ToolStripMenuItem()
         VentaDeRepuestosToolStripMenuItem = New ToolStripMenuItem()
-        HistorialDeVentasToolStripMenuItem = New ToolStripMenuItem()
         PictureBox1 = New PictureBox()
         PanelInventario = New Panel()
         btnEliminar = New Button()
@@ -59,6 +58,7 @@ Partial Class Form4
         Precio = New DataGridViewTextBoxColumn()
         Proveedor = New DataGridViewTextBoxColumn()
         Label1 = New Label()
+        btnVolver = New Button()
         PanelGarantia = New Panel()
         cbxCliente = New ComboBox()
         FecFin = New DateTimePicker()
@@ -90,56 +90,12 @@ Partial Class Form4
         FechaFin = New DataGridViewTextBoxColumn()
         lblIdDesc = New Label()
         Label2 = New Label()
-        PanelVentas = New Panel()
-        Label11 = New Label()
-        txtPrecioo = New TextBox()
-        btnComprar = New Button()
-        Label10 = New Label()
-        Label9 = New Label()
-        txtMonto = New TextBox()
-        Label8 = New Label()
-        Label7 = New Label()
-        Label6 = New Label()
-        Label5 = New Label()
-        Label4 = New Label()
-        txtFecha = New TextBox()
-        TxtRutCliente = New TextBox()
-        txtCantidadd = New TextBox()
-        txtNomRepuesto = New TextBox()
-        btnbuscador = New Button()
-        btnVerTodo = New Button()
-        txtDescrip = New TextBox()
-        Label3 = New Label()
-        DataGridVentas = New DataGridView()
-        DataGridViewTextBoxColumn1 = New DataGridViewTextBoxColumn()
-        Descripcion = New DataGridViewTextBoxColumn()
-        cantidadd = New DataGridViewTextBoxColumn()
-        precioo = New DataGridViewTextBoxColumn()
-        Proveedo = New DataGridViewTextBoxColumn()
-        panelHistorialVentas = New Panel()
-        Label13 = New Label()
-        btnBuscarVentas = New Button()
-        btnVerTodos = New Button()
-        txtNomRep = New TextBox()
-        Label12 = New Label()
-        DataGridHistorialVentas = New DataGridView()
-        DataGridViewTextBoxColumn2 = New DataGridViewTextBoxColumn()
-        DataGridViewTextBoxColumn3 = New DataGridViewTextBoxColumn()
-        DataGridViewTextBoxColumn4 = New DataGridViewTextBoxColumn()
-        DataGridViewTextBoxColumn5 = New DataGridViewTextBoxColumn()
-        DataGridViewTextBoxColumn6 = New DataGridViewTextBoxColumn()
-        Total = New DataGridViewTextBoxColumn()
-        btnVolver = New Button()
         MenuStrip1.SuspendLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         PanelInventario.SuspendLayout()
         CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
         PanelGarantia.SuspendLayout()
         CType(DataGridView2, ComponentModel.ISupportInitialize).BeginInit()
-        PanelVentas.SuspendLayout()
-        CType(DataGridVentas, ComponentModel.ISupportInitialize).BeginInit()
-        panelHistorialVentas.SuspendLayout()
-        CType(DataGridHistorialVentas, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' MenuStrip1
@@ -188,7 +144,7 @@ Partial Class Form4
         ' 
         ' VentasToolStripMenuItem
         ' 
-        VentasToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {VentaDeRepuestosToolStripMenuItem, HistorialDeVentasToolStripMenuItem})
+        VentasToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {VentaDeRepuestosToolStripMenuItem})
         VentasToolStripMenuItem.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         VentasToolStripMenuItem.ForeColor = Color.White
         VentasToolStripMenuItem.Name = "VentasToolStripMenuItem"
@@ -202,14 +158,6 @@ Partial Class Form4
         VentaDeRepuestosToolStripMenuItem.Name = "VentaDeRepuestosToolStripMenuItem"
         VentaDeRepuestosToolStripMenuItem.Size = New Size(232, 26)
         VentaDeRepuestosToolStripMenuItem.Text = "Venta de repuestos"
-        ' 
-        ' HistorialDeVentasToolStripMenuItem
-        ' 
-        HistorialDeVentasToolStripMenuItem.BackColor = Color.Gray
-        HistorialDeVentasToolStripMenuItem.ForeColor = Color.White
-        HistorialDeVentasToolStripMenuItem.Name = "HistorialDeVentasToolStripMenuItem"
-        HistorialDeVentasToolStripMenuItem.Size = New Size(232, 26)
-        HistorialDeVentasToolStripMenuItem.Text = "Historial de ventas"
         ' 
         ' PictureBox1
         ' 
@@ -540,6 +488,21 @@ Partial Class Form4
         Label1.TabIndex = 12
         Label1.Text = "Inventario de repuestos"
         ' 
+        ' btnVolver
+        ' 
+        btnVolver.BackColor = Color.DimGray
+        btnVolver.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnVolver.ForeColor = Color.White
+        btnVolver.Image = My.Resources.Resources.volver
+        btnVolver.ImageAlign = ContentAlignment.MiddleRight
+        btnVolver.Location = New Point(477, 865)
+        btnVolver.Name = "btnVolver"
+        btnVolver.Padding = New Padding(0, 0, 15, 0)
+        btnVolver.Size = New Size(159, 48)
+        btnVolver.TabIndex = 18
+        btnVolver.Text = "Volver"
+        btnVolver.UseVisualStyleBackColor = False
+        ' 
         ' PanelGarantia
         ' 
         PanelGarantia.Controls.Add(cbxCliente)
@@ -566,7 +529,7 @@ Partial Class Form4
         PanelGarantia.Controls.Add(DataGridView2)
         PanelGarantia.Controls.Add(lblIdDesc)
         PanelGarantia.Controls.Add(Label2)
-        PanelGarantia.Location = New Point(50, 65)
+        PanelGarantia.Location = New Point(47, 58)
         PanelGarantia.Name = "PanelGarantia"
         PanelGarantia.Size = New Size(1001, 785)
         PanelGarantia.TabIndex = 19
@@ -790,7 +753,7 @@ Partial Class Form4
         btnVisualizar2.Padding = New Padding(0, 0, 20, 0)
         btnVisualizar2.Size = New Size(149, 36)
         btnVisualizar2.TabIndex = 20
-        btnVisualizar2.Text = "Visualizar"
+        btnVisualizar2.Text = "Ver todo"
         btnVisualizar2.UseVisualStyleBackColor = False
         ' 
         ' btnBuscar2
@@ -890,420 +853,12 @@ Partial Class Form4
         Label2.TabIndex = 13
         Label2.Text = "Garantia de repuestos"
         ' 
-        ' PanelVentas
-        ' 
-        PanelVentas.Controls.Add(Label11)
-        PanelVentas.Controls.Add(txtPrecioo)
-        PanelVentas.Controls.Add(btnComprar)
-        PanelVentas.Controls.Add(Label10)
-        PanelVentas.Controls.Add(Label9)
-        PanelVentas.Controls.Add(txtMonto)
-        PanelVentas.Controls.Add(Label8)
-        PanelVentas.Controls.Add(Label7)
-        PanelVentas.Controls.Add(Label6)
-        PanelVentas.Controls.Add(Label5)
-        PanelVentas.Controls.Add(Label4)
-        PanelVentas.Controls.Add(txtFecha)
-        PanelVentas.Controls.Add(TxtRutCliente)
-        PanelVentas.Controls.Add(txtCantidadd)
-        PanelVentas.Controls.Add(txtNomRepuesto)
-        PanelVentas.Controls.Add(btnbuscador)
-        PanelVentas.Controls.Add(btnVerTodo)
-        PanelVentas.Controls.Add(txtDescrip)
-        PanelVentas.Controls.Add(Label3)
-        PanelVentas.Controls.Add(DataGridVentas)
-        PanelVentas.Location = New Point(12, 34)
-        PanelVentas.Name = "PanelVentas"
-        PanelVentas.Size = New Size(1080, 816)
-        PanelVentas.TabIndex = 20
-        PanelVentas.Visible = False
-        ' 
-        ' Label11
-        ' 
-        Label11.AutoSize = True
-        Label11.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label11.ForeColor = Color.White
-        Label11.Location = New Point(320, 428)
-        Label11.Name = "Label11"
-        Label11.Size = New Size(59, 23)
-        Label11.TabIndex = 40
-        Label11.Text = "Precio"
-        ' 
-        ' txtPrecioo
-        ' 
-        txtPrecioo.Location = New Point(521, 427)
-        txtPrecioo.Name = "txtPrecioo"
-        txtPrecioo.ReadOnly = True
-        txtPrecioo.Size = New Size(259, 27)
-        txtPrecioo.TabIndex = 39
-        ' 
-        ' btnComprar
-        ' 
-        btnComprar.Location = New Point(634, 691)
-        btnComprar.Name = "btnComprar"
-        btnComprar.Size = New Size(146, 29)
-        btnComprar.TabIndex = 38
-        btnComprar.Text = "Confirmar compra"
-        btnComprar.UseVisualStyleBackColor = True
-        ' 
-        ' Label10
-        ' 
-        Label10.AutoSize = True
-        Label10.Font = New Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label10.ForeColor = Color.White
-        Label10.Location = New Point(304, 322)
-        Label10.Name = "Label10"
-        Label10.Size = New Size(475, 31)
-        Label10.TabIndex = 37
-        Label10.Text = "A continuacion complete los datos faltante"
-        ' 
-        ' Label9
-        ' 
-        Label9.AutoSize = True
-        Label9.Font = New Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label9.ForeColor = Color.White
-        Label9.Location = New Point(271, 27)
-        Label9.Name = "Label9"
-        Label9.Size = New Size(577, 31)
-        Label9.TabIndex = 36
-        Label9.Text = "Por favor busca y seleccione el repuesto que necesite"
-        ' 
-        ' txtMonto
-        ' 
-        txtMonto.Location = New Point(521, 616)
-        txtMonto.Name = "txtMonto"
-        txtMonto.ReadOnly = True
-        txtMonto.Size = New Size(259, 27)
-        txtMonto.TabIndex = 35
-        ' 
-        ' Label8
-        ' 
-        Label8.AutoSize = True
-        Label8.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label8.ForeColor = Color.White
-        Label8.Location = New Point(320, 619)
-        Label8.Name = "Label8"
-        Label8.Size = New Size(115, 23)
-        Label8.TabIndex = 34
-        Label8.Text = "Total a pagar"
-        ' 
-        ' Label7
-        ' 
-        Label7.AutoSize = True
-        Label7.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label7.ForeColor = Color.White
-        Label7.Location = New Point(320, 563)
-        Label7.Name = "Label7"
-        Label7.Size = New Size(55, 23)
-        Label7.TabIndex = 33
-        Label7.Text = "Fecha"
-        ' 
-        ' Label6
-        ' 
-        Label6.AutoSize = True
-        Label6.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label6.ForeColor = Color.White
-        Label6.Location = New Point(320, 517)
-        Label6.Name = "Label6"
-        Label6.Size = New Size(96, 23)
-        Label6.TabIndex = 32
-        Label6.Text = "Rut cliente"
-        ' 
-        ' Label5
-        ' 
-        Label5.AutoSize = True
-        Label5.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label5.ForeColor = Color.White
-        Label5.Location = New Point(320, 471)
-        Label5.Name = "Label5"
-        Label5.Size = New Size(83, 23)
-        Label5.TabIndex = 31
-        Label5.Text = "Cantidad"
-        ' 
-        ' Label4
-        ' 
-        Label4.AutoSize = True
-        Label4.Font = New Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label4.ForeColor = Color.White
-        Label4.Location = New Point(320, 383)
-        Label4.Name = "Label4"
-        Label4.Size = New Size(181, 23)
-        Label4.TabIndex = 30
-        Label4.Text = "Nombre del repuesto"
-        ' 
-        ' txtFecha
-        ' 
-        txtFecha.Location = New Point(521, 563)
-        txtFecha.Name = "txtFecha"
-        txtFecha.ReadOnly = True
-        txtFecha.Size = New Size(259, 27)
-        txtFecha.TabIndex = 29
-        ' 
-        ' TxtRutCliente
-        ' 
-        TxtRutCliente.Location = New Point(521, 517)
-        TxtRutCliente.Name = "TxtRutCliente"
-        TxtRutCliente.Size = New Size(259, 27)
-        TxtRutCliente.TabIndex = 28
-        ' 
-        ' txtCantidadd
-        ' 
-        txtCantidadd.Location = New Point(521, 470)
-        txtCantidadd.Name = "txtCantidadd"
-        txtCantidadd.Size = New Size(259, 27)
-        txtCantidadd.TabIndex = 27
-        ' 
-        ' txtNomRepuesto
-        ' 
-        txtNomRepuesto.Location = New Point(521, 384)
-        txtNomRepuesto.Name = "txtNomRepuesto"
-        txtNomRepuesto.ReadOnly = True
-        txtNomRepuesto.Size = New Size(259, 27)
-        txtNomRepuesto.TabIndex = 26
-        ' 
-        ' btnbuscador
-        ' 
-        btnbuscador.BackColor = Color.DimGray
-        btnbuscador.Font = New Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnbuscador.ForeColor = Color.White
-        btnbuscador.Image = My.Resources.Resources.buscar
-        btnbuscador.ImageAlign = ContentAlignment.MiddleRight
-        btnbuscador.Location = New Point(523, 93)
-        btnbuscador.Name = "btnbuscador"
-        btnbuscador.Padding = New Padding(0, 0, 20, 0)
-        btnbuscador.Size = New Size(138, 38)
-        btnbuscador.TabIndex = 24
-        btnbuscador.Text = "Buscar"
-        btnbuscador.UseVisualStyleBackColor = False
-        ' 
-        ' btnVerTodo
-        ' 
-        btnVerTodo.BackColor = Color.DimGray
-        btnVerTodo.Font = New Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnVerTodo.ForeColor = Color.White
-        btnVerTodo.Image = My.Resources.Resources.visualizar_2
-        btnVerTodo.ImageAlign = ContentAlignment.MiddleRight
-        btnVerTodo.Location = New Point(864, 93)
-        btnVerTodo.Name = "btnVerTodo"
-        btnVerTodo.Padding = New Padding(0, 0, 20, 0)
-        btnVerTodo.Size = New Size(172, 38)
-        btnVerTodo.TabIndex = 23
-        btnVerTodo.Text = "Ver todo"
-        btnVerTodo.UseVisualStyleBackColor = False
-        ' 
-        ' txtDescrip
-        ' 
-        txtDescrip.Location = New Point(210, 97)
-        txtDescrip.Multiline = True
-        txtDescrip.Name = "txtDescrip"
-        txtDescrip.Size = New Size(297, 28)
-        txtDescrip.TabIndex = 22
-        ' 
-        ' Label3
-        ' 
-        Label3.AutoSize = True
-        Label3.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label3.ForeColor = Color.White
-        Label3.Location = New Point(46, 97)
-        Label3.Name = "Label3"
-        Label3.Size = New Size(158, 28)
-        Label3.TabIndex = 21
-        Label3.Text = "ID/Descripcion:"
-        ' 
-        ' DataGridVentas
-        ' 
-        DataGridVentas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridVentas.Columns.AddRange(New DataGridViewColumn() {DataGridViewTextBoxColumn1, Descripcion, cantidadd, precioo, Proveedo})
-        DataGridVentas.Location = New Point(41, 137)
-        DataGridVentas.Name = "DataGridVentas"
-        DataGridVentas.RowHeadersWidth = 51
-        DataGridVentas.Size = New Size(995, 182)
-        DataGridVentas.TabIndex = 18
-        ' 
-        ' DataGridViewTextBoxColumn1
-        ' 
-        DataGridViewTextBoxColumn1.HeaderText = "ID"
-        DataGridViewTextBoxColumn1.MinimumWidth = 6
-        DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        DataGridViewTextBoxColumn1.Width = 80
-        ' 
-        ' Descripcion
-        ' 
-        Descripcion.HeaderText = "Descripción"
-        Descripcion.MinimumWidth = 6
-        Descripcion.Name = "Descripcion"
-        Descripcion.Width = 345
-        ' 
-        ' cantidadd
-        ' 
-        cantidadd.HeaderText = "Cantidad"
-        cantidadd.MinimumWidth = 6
-        cantidadd.Name = "cantidadd"
-        cantidadd.Width = 210
-        ' 
-        ' precioo
-        ' 
-        precioo.HeaderText = "Precio"
-        precioo.MinimumWidth = 6
-        precioo.Name = "precioo"
-        precioo.Width = 125
-        ' 
-        ' Proveedo
-        ' 
-        Proveedo.HeaderText = "Proveedor"
-        Proveedo.MinimumWidth = 6
-        Proveedo.Name = "Proveedo"
-        Proveedo.Width = 180
-        ' 
-        ' panelHistorialVentas
-        ' 
-        panelHistorialVentas.Controls.Add(Label13)
-        panelHistorialVentas.Controls.Add(btnBuscarVentas)
-        panelHistorialVentas.Controls.Add(btnVerTodos)
-        panelHistorialVentas.Controls.Add(txtNomRep)
-        panelHistorialVentas.Controls.Add(Label12)
-        panelHistorialVentas.Controls.Add(DataGridHistorialVentas)
-        panelHistorialVentas.Location = New Point(12, 31)
-        panelHistorialVentas.Name = "panelHistorialVentas"
-        panelHistorialVentas.Size = New Size(1074, 803)
-        panelHistorialVentas.TabIndex = 41
-        panelHistorialVentas.Visible = False
-        ' 
-        ' Label13
-        ' 
-        Label13.AutoSize = True
-        Label13.Font = New Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label13.ForeColor = Color.White
-        Label13.Location = New Point(374, 46)
-        Label13.Name = "Label13"
-        Label13.Size = New Size(281, 41)
-        Label13.TabIndex = 29
-        Label13.Text = "Historial de ventas"
-        ' 
-        ' btnBuscarVentas
-        ' 
-        btnBuscarVentas.BackColor = Color.DimGray
-        btnBuscarVentas.Font = New Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnBuscarVentas.ForeColor = Color.White
-        btnBuscarVentas.Image = My.Resources.Resources.buscar
-        btnBuscarVentas.ImageAlign = ContentAlignment.MiddleRight
-        btnBuscarVentas.Location = New Point(524, 147)
-        btnBuscarVentas.Name = "btnBuscarVentas"
-        btnBuscarVentas.Padding = New Padding(0, 0, 20, 0)
-        btnBuscarVentas.Size = New Size(138, 38)
-        btnBuscarVentas.TabIndex = 28
-        btnBuscarVentas.Text = "Buscar"
-        btnBuscarVentas.UseVisualStyleBackColor = False
-        ' 
-        ' btnVerTodos
-        ' 
-        btnVerTodos.BackColor = Color.DimGray
-        btnVerTodos.Font = New Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnVerTodos.ForeColor = Color.White
-        btnVerTodos.Image = My.Resources.Resources.visualizar_2
-        btnVerTodos.ImageAlign = ContentAlignment.MiddleRight
-        btnVerTodos.Location = New Point(853, 146)
-        btnVerTodos.Name = "btnVerTodos"
-        btnVerTodos.Padding = New Padding(0, 0, 20, 0)
-        btnVerTodos.Size = New Size(172, 38)
-        btnVerTodos.TabIndex = 27
-        btnVerTodos.Text = "Ver todo"
-        btnVerTodos.UseVisualStyleBackColor = False
-        ' 
-        ' txtNomRep
-        ' 
-        txtNomRep.Location = New Point(211, 151)
-        txtNomRep.Multiline = True
-        txtNomRep.Name = "txtNomRep"
-        txtNomRep.Size = New Size(297, 28)
-        txtNomRep.TabIndex = 26
-        ' 
-        ' Label12
-        ' 
-        Label12.AutoSize = True
-        Label12.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label12.ForeColor = Color.White
-        Label12.Location = New Point(47, 151)
-        Label12.Name = "Label12"
-        Label12.Size = New Size(158, 28)
-        Label12.TabIndex = 25
-        Label12.Text = "ID/Descripcion:"
-        ' 
-        ' DataGridHistorialVentas
-        ' 
-        DataGridHistorialVentas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridHistorialVentas.Columns.AddRange(New DataGridViewColumn() {DataGridViewTextBoxColumn2, DataGridViewTextBoxColumn3, DataGridViewTextBoxColumn4, DataGridViewTextBoxColumn5, DataGridViewTextBoxColumn6, Total})
-        DataGridHistorialVentas.Location = New Point(49, 222)
-        DataGridHistorialVentas.Name = "DataGridHistorialVentas"
-        DataGridHistorialVentas.RowHeadersWidth = 51
-        DataGridHistorialVentas.Size = New Size(976, 169)
-        DataGridHistorialVentas.TabIndex = 19
-        ' 
-        ' DataGridViewTextBoxColumn2
-        ' 
-        DataGridViewTextBoxColumn2.HeaderText = "ID"
-        DataGridViewTextBoxColumn2.MinimumWidth = 6
-        DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        DataGridViewTextBoxColumn2.Width = 30
-        ' 
-        ' DataGridViewTextBoxColumn3
-        ' 
-        DataGridViewTextBoxColumn3.HeaderText = "Nombre Repuesto"
-        DataGridViewTextBoxColumn3.MinimumWidth = 6
-        DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        DataGridViewTextBoxColumn3.Width = 380
-        ' 
-        ' DataGridViewTextBoxColumn4
-        ' 
-        DataGridViewTextBoxColumn4.HeaderText = "Cantidad vendida"
-        DataGridViewTextBoxColumn4.MinimumWidth = 6
-        DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
-        DataGridViewTextBoxColumn4.Width = 125
-        ' 
-        ' DataGridViewTextBoxColumn5
-        ' 
-        DataGridViewTextBoxColumn5.HeaderText = "Cliente"
-        DataGridViewTextBoxColumn5.MinimumWidth = 6
-        DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
-        DataGridViewTextBoxColumn5.Width = 150
-        ' 
-        ' DataGridViewTextBoxColumn6
-        ' 
-        DataGridViewTextBoxColumn6.HeaderText = "Fecha de venta"
-        DataGridViewTextBoxColumn6.MinimumWidth = 6
-        DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
-        DataGridViewTextBoxColumn6.Width = 125
-        ' 
-        ' Total
-        ' 
-        Total.HeaderText = "Monto total vendido"
-        Total.MinimumWidth = 6
-        Total.Name = "Total"
-        Total.Width = 150
-        ' 
-        ' btnVolver
-        ' 
-        btnVolver.BackColor = Color.DimGray
-        btnVolver.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnVolver.ForeColor = Color.White
-        btnVolver.Image = My.Resources.Resources.volver
-        btnVolver.ImageAlign = ContentAlignment.MiddleRight
-        btnVolver.Location = New Point(477, 865)
-        btnVolver.Name = "btnVolver"
-        btnVolver.Padding = New Padding(0, 0, 15, 0)
-        btnVolver.Size = New Size(159, 48)
-        btnVolver.TabIndex = 18
-        btnVolver.Text = "Volver"
-        btnVolver.UseVisualStyleBackColor = False
-        ' 
         ' Form4
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.FromArgb(CByte(35), CByte(35), CByte(35))
         ClientSize = New Size(1092, 925)
-        Controls.Add(panelHistorialVentas)
-        Controls.Add(PanelVentas)
         Controls.Add(PanelGarantia)
         Controls.Add(btnVolver)
         Controls.Add(PanelInventario)
@@ -1322,12 +877,6 @@ Partial Class Form4
         PanelGarantia.ResumeLayout(False)
         PanelGarantia.PerformLayout()
         CType(DataGridView2, ComponentModel.ISupportInitialize).EndInit()
-        PanelVentas.ResumeLayout(False)
-        PanelVentas.PerformLayout()
-        CType(DataGridVentas, ComponentModel.ISupportInitialize).EndInit()
-        panelHistorialVentas.ResumeLayout(False)
-        panelHistorialVentas.PerformLayout()
-        CType(DataGridHistorialVentas, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -1399,44 +948,4 @@ Partial Class Form4
     Friend WithEvents FecFin As DateTimePicker
     Friend WithEvents FecIni As DateTimePicker
     Friend WithEvents cbxCliente As ComboBox
-    Friend WithEvents PanelVentas As Panel
-    Friend WithEvents DataGridVentas As DataGridView
-    Friend WithEvents btnbuscador As Button
-    Friend WithEvents btnVerTodo As Button
-    Friend WithEvents txtDescrip As TextBox
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Label5 As Label
-    Friend WithEvents Label4 As Label
-    Friend WithEvents txtFecha As TextBox
-    Friend WithEvents TxtRutCliente As TextBox
-    Friend WithEvents txtCantidadd As TextBox
-    Friend WithEvents txtNomRepuesto As TextBox
-    Friend WithEvents Label6 As Label
-    Friend WithEvents txtMonto As TextBox
-    Friend WithEvents Label8 As Label
-    Friend WithEvents Label7 As Label
-    Friend WithEvents Label10 As Label
-    Friend WithEvents Label9 As Label
-    Friend WithEvents HistorialDeVentasToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents btnComprar As Button
-    Friend WithEvents Label11 As Label
-    Friend WithEvents txtPrecioo As TextBox
-    Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
-    Friend WithEvents Descripcion As DataGridViewTextBoxColumn
-    Friend WithEvents cantidadd As DataGridViewTextBoxColumn
-    Friend WithEvents precioo As DataGridViewTextBoxColumn
-    Friend WithEvents Proveedo As DataGridViewTextBoxColumn
-    Friend WithEvents panelHistorialVentas As Panel
-    Friend WithEvents DataGridHistorialVentas As DataGridView
-    Friend WithEvents DataGridViewTextBoxColumn2 As DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn3 As DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn4 As DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn5 As DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn6 As DataGridViewTextBoxColumn
-    Friend WithEvents Total As DataGridViewTextBoxColumn
-    Friend WithEvents btnBuscarVentas As Button
-    Friend WithEvents btnVerTodos As Button
-    Friend WithEvents txtNomRep As TextBox
-    Friend WithEvents Label12 As Label
-    Friend WithEvents Label13 As Label
 End Class

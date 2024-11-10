@@ -2,11 +2,12 @@
 
 Public Class Form4
 
-    Dim connectionString As String = "Server=localhost;Database=taller;User ID=root;Password=Hola.,123;SslMode=None;AllowPublicKeyRetrieval=True;"
+    ' Propiedad para almacenar el tipo de usuario
+    Public Property TipoUsuario As String
+    Dim connectionString As String = "Server=localhost;Database=taller;User ID=root;Password=Maju2223;SslMode=None;AllowPublicKeyRetrieval=True;"
     Private connection As MySqlConnection
 
     Private Sub Form4_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
         ' Ocultar el PanelInventario al iniciar el formulario
         PanelInventario.Visible = False
 
@@ -25,15 +26,22 @@ Public Class Form4
         Finally
             If connection IsNot Nothing Then connection.Close()
         End Try
-
-        ' Para mostrar la fecha actual de la compra
-        txtFecha.Text = DateTime.Now.ToString("yyyy-MM-dd")
-
     End Sub
 
+
+
+
     Private Sub btnVolver_Click(sender As Object, e As EventArgs) Handles btnVolver.Click
-        ' Código para volver a Form2 (menú)
-        Form2.Instance.Show()
+        ' Crear una nueva instancia de Form2
+        Dim form2 As New Form2()
+
+        ' Pasar el tipo de usuario al Form2
+        form2.TipoUsuario = Me.TipoUsuario ' Asumiendo que este formulario tiene acceso al tipo de usuario
+
+        ' Mostrar Form2
+        form2.Show()
+
+        ' Cerrar el formulario actual
         Me.Close()
     End Sub
 
@@ -43,8 +51,7 @@ Public Class Form4
         PanelInventario.Visible = False
         ' PanelSolicitud.Visible = False
         PanelGarantia.Visible = False
-        PanelVentas.Visible = False
-        panelHistorialVentas.Visible = False
+        ' PanelVentas.Visible = False
 
         ' Muestra el panel seleccionado
         selectedPanel.Visible = True
@@ -244,7 +251,6 @@ Public Class Form4
         End If
     End Sub
 
-
     'se carga los datos seleccionados en el DataGridView a los campos de texto y ComboBox
     Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
         ' Verifica si el CheckModificar o el CheckEliminar están activados
@@ -266,7 +272,6 @@ Public Class Form4
             End If
         End If
     End Sub
-
 
     Private Sub btnModificar_Click(sender As Object, e As EventArgs) Handles btnModificar.Click
 
@@ -622,12 +627,12 @@ Public Class Form4
                 Dim row = DataGridView2.Rows(e.RowIndex)
 
                 'carga los datos en los TextBox y ComboBox
-                txtID2.Text = row.Cells("GarantiaID").Value.ToString
-                txtDesc2.Text = row.Cells("NombreRepuesto").Value.ToString
-                txtDetalle.Text = row.Cells("DetalleGarantia").Value.ToString
-                cbxCliente.Text = row.Cells("Cliente").Value.ToString
-                FecIni.Value = Date.Parse(row.Cells("FechaInicio").Value.ToString)
-                FecFin.Value = Date.Parse(row.Cells("FechaFin").Value.ToString)
+                txtID2.Text = row.Cells("GarantiaID").Value.ToString()
+                txtDesc2.Text = row.Cells("NombreRepuesto").Value.ToString()
+                txtDetalle.Text = row.Cells("DetalleGarantia").Value.ToString()
+                cbxCliente.Text = row.Cells("Cliente").Value.ToString()
+                FecIni.Value = DateTime.Parse(row.Cells("FechaInicio").Value.ToString())
+                FecFin.Value = DateTime.Parse(row.Cells("FechaFin").Value.ToString())
             End If
         End If
     End Sub
@@ -751,392 +756,5 @@ Public Class Form4
                 MessageBox.Show("Error al eliminar el registro: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End If
-    End Sub
-
-    Private Sub VentaDeRepuestosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles VentaDeRepuestosToolStripMenuItem.Click
-        ShowPanel(PanelVentas)
-    End Sub
-
-    Private Sub btnbuscador_Click(sender As Object, e As EventArgs) Handles btnbuscador.Click
-
-        Dim criterio = txtDescrip.Text
-
-        If criterio = "" Then
-            MessageBox.Show("Por favor, ingrese un ID o descripción.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End If
-
-        Using conn As New MySqlConnection(connectionString)
-            Try
-                conn.Open()
-
-                Dim query As String
-                If IsNumeric(criterio) Then
-                    query = "SELECT * FROM repuestos WHERE RepuestoID = @criterio"
-                Else
-                    query = "SELECT * FROM repuestos WHERE NombreRepuesto LIKE @criterio"
-                End If
-
-                Using cmd As New MySqlCommand(query, conn)
-                    If IsNumeric(criterio) Then
-                        cmd.Parameters.AddWithValue("@criterio", criterio)
-                    Else
-                        cmd.Parameters.AddWithValue("@criterio", criterio & "%")
-                    End If
-
-                    Dim adapter As New MySqlDataAdapter(cmd)
-                    Dim table As New DataTable
-                    adapter.Fill(table)
-
-                    If table.Rows.Count > 0 Then
-                        DataGridVentas.Columns.Clear()
-
-                        'genera columnas automaticamente
-                        DataGridVentas.AutoGenerateColumns = True
-
-                        'asigna el DataSource y refresca
-                        DataGridVentas.DataSource = table
-
-                        'ajusta el tamaño del DataGridView1 para que ocupe todo el espacio disponible
-                        DataGridVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-                        DataGridVentas.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
-                        DataGridVentas.Refresh()
-
-                    Else
-                        MessageBox.Show("Repuesto no encontrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End If
-                End Using
-            Catch ex As Exception
-                MessageBox.Show("Error al conectar con la base de datos: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End Using
-    End Sub
-
-    Private Sub btnVerTodo_Click(sender As Object, e As EventArgs) Handles btnVerTodo.Click
-
-        Using conn As New MySqlConnection(connectionString)
-            Try
-                conn.Open()
-                'consulta para seleccionar todos los registros de la tabla usuarios
-                Dim query = "SELECT * FROM repuestos"
-
-                Using cmd As New MySqlCommand(query, conn)
-                    Dim adapter As New MySqlDataAdapter(cmd)
-                    Dim table As New DataTable
-                    adapter.Fill(table)
-
-                    If table.Rows.Count > 0 Then
-                        MessageBox.Show("Total de repuestos encontrados: " & table.Rows.Count.ToString)
-
-                        'borra las columnas anteriores si existen
-                        DataGridVentas.Columns.Clear()
-
-                        'genera columnas automaticamente
-                        DataGridVentas.AutoGenerateColumns = True
-
-                        'asigna el DataSource con todos los registros y refresca
-                        DataGridVentas.DataSource = table
-
-                        'ajusta el tamaño del DataGridView1
-                        DataGridVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-                        DataGridVentas.Refresh()
-
-                    Else
-                        MessageBox.Show("No hay repuestos registrados en la base de datos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    End If
-                End Using
-            Catch ex As Exception
-                MessageBox.Show("Error al conectar con la base de datos: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End Using
-    End Sub
-
-    Private Sub btnComprar_Click(sender As Object, e As EventArgs) Handles btnComprar.Click
-        ' Validar que todos los campos necesarios estén llenos
-        If String.IsNullOrWhiteSpace(txtNomRepuesto.Text) OrElse
-       String.IsNullOrWhiteSpace(txtPrecioo.Text) OrElse
-       String.IsNullOrWhiteSpace(txtCantidadd.Text) OrElse
-       String.IsNullOrWhiteSpace(TxtRutCliente.Text) OrElse
-       String.IsNullOrWhiteSpace(txtFecha.Text) OrElse
-       String.IsNullOrWhiteSpace(txtMonto.Text) Then
-            MessageBox.Show("Por favor, complete todos los campos.", "Campos Incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return
-        End If
-
-        ' Verificar si el RUT del cliente existe en la tabla 'clientes'
-        Dim rutCliente As String = TxtRutCliente.Text.Trim()
-        Dim clienteExiste As Boolean = False
-        Using conn As New MySqlConnection(connectionString)
-            Try
-                conn.Open()
-                Dim queryCliente As String = "SELECT COUNT(*) FROM clientes WHERE Rut = @Rut"
-                Using cmd As New MySqlCommand(queryCliente, conn)
-                    cmd.Parameters.AddWithValue("@Rut", rutCliente)
-                    Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
-                    If count > 0 Then
-                        clienteExiste = True
-                    Else
-                        MessageBox.Show("El RUT del cliente no está registrado.", "Cliente No Encontrado", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                        Return
-                    End If
-                End Using
-            Catch ex As Exception
-                MessageBox.Show("Error al verificar el cliente: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-            End Try
-        End Using
-
-        ' Obtener detalles del repuesto
-        Dim nombreRepuesto As String = txtNomRepuesto.Text.Trim()
-        Dim cantidadSolicitada As Integer
-        Dim precioUnitario As Decimal
-        Dim montoTotal As Decimal
-
-        If Not Integer.TryParse(txtCantidadd.Text, cantidadSolicitada) Then
-            MessageBox.Show("Cantidad inválida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return
-        End If
-
-        If Not Decimal.TryParse(txtPrecioo.Text, precioUnitario) Then
-            MessageBox.Show("Precio inválido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return
-        End If
-
-        If Not Decimal.TryParse(txtMonto.Text, montoTotal) Then
-            MessageBox.Show("Monto inválido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return
-        End If
-
-        ' Verificar nuevamente el stock antes de proceder
-        Using conn As New MySqlConnection(connectionString)
-            Try
-                conn.Open()
-                ' Iniciar una transacción
-                Using transaction As MySqlTransaction = conn.BeginTransaction()
-                    Try
-                        ' Obtener el stock actual
-                        Dim queryStock As String = "SELECT RepuestoID, CantidadStock FROM repuestos WHERE NombreRepuesto = @NombreRepuesto FOR UPDATE"
-                        Dim repuestoID As Integer
-                        Dim stockDisponible As Integer
-                        Using cmd As New MySqlCommand(queryStock, conn, transaction)
-                            cmd.Parameters.AddWithValue("@NombreRepuesto", nombreRepuesto)
-                            Using reader As MySqlDataReader = cmd.ExecuteReader()
-                                If reader.Read() Then
-                                    repuestoID = Convert.ToInt32(reader("RepuestoID"))
-                                    stockDisponible = Convert.ToInt32(reader("CantidadStock"))
-                                Else
-                                    MessageBox.Show("El repuesto seleccionado no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                                    transaction.Rollback()
-                                    Return
-                                End If
-                            End Using
-                        End Using
-
-                        If cantidadSolicitada > stockDisponible Then
-                            MessageBox.Show("La cantidad solicitada es mayor que el stock disponible.", "Stock Insuficiente", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                            transaction.Rollback()
-                            Return
-                        End If
-
-                        ' Actualizar el stock en la tabla 'repuestos'
-                        Dim nuevoStock As Integer = stockDisponible - cantidadSolicitada
-                        Dim queryUpdateStock As String = "UPDATE repuestos SET CantidadStock = @NuevoStock WHERE RepuestoID = @RepuestoID"
-                        Using cmd As New MySqlCommand(queryUpdateStock, conn, transaction)
-                            cmd.Parameters.AddWithValue("@NuevoStock", nuevoStock)
-                            cmd.Parameters.AddWithValue("@RepuestoID", repuestoID)
-                            cmd.ExecuteNonQuery()
-                        End Using
-
-                        ' Insertar la venta en la tabla 'ventasrepuestos'
-                        Dim queryInsertVenta As String = "INSERT INTO ventasrepuestos (NombreRepuesto, CantidadVendida, Cliente, FechaVenta, Total) VALUES (@NombreRepuesto, @CantidadVendida, @Cliente, @FechaVenta, @Total)"
-                        Using cmd As New MySqlCommand(queryInsertVenta, conn, transaction)
-                            cmd.Parameters.AddWithValue("@NombreRepuesto", nombreRepuesto)
-                            cmd.Parameters.AddWithValue("@CantidadVendida", cantidadSolicitada)
-                            cmd.Parameters.AddWithValue("@Cliente", rutCliente)
-                            cmd.Parameters.AddWithValue("@FechaVenta", DateTime.Parse(txtFecha.Text))
-                            cmd.Parameters.AddWithValue("@Total", montoTotal)
-                            cmd.ExecuteNonQuery()
-                        End Using
-
-                        ' Confirmar la transacción
-                        transaction.Commit()
-
-                        MessageBox.Show("Compra realizada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                        ' Actualizar la vista del stock
-                        btnVerTodo_Click(sender, e)
-
-                        ' Limpiar los campos
-                        txtNomRepuesto.Clear()
-                        txtPrecioo.Clear()
-                        txtCantidadd.Clear()
-                        TxtRutCliente.Clear()
-                        txtMonto.Clear()
-
-                    Catch ex As Exception
-                        ' Revertir la transacción en caso de error
-                        transaction.Rollback()
-                        MessageBox.Show("Error al realizar la compra: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End Try
-                End Using
-            Catch ex As Exception
-                MessageBox.Show("Error al conectar con la base de datos: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End Using
-    End Sub
-
-
-    Private Sub DataGridVentas_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridVentas.CellContentClick
-        ' manejador de eventos en el datagrid
-
-        If e.RowIndex >= 0 Then
-            Dim selectedRow = DataGridVentas.Rows(e.RowIndex)
-            ' Rellenar los campos con los datos del repuesto seleccionado
-            txtNomRepuesto.Text = selectedRow.Cells("NombreRepuesto").Value.ToString
-            txtPrecioo.Text = selectedRow.Cells("PrecioUnitario").Value.ToString
-        End If
-    End Sub
-
-
-
-
-    ' manejador de eventos para txtCantidadd
-    Private Sub txtCantidadd_TextChanged(sender As Object, e As EventArgs) Handles txtCantidadd.TextChanged
-
-
-        ' Validar si la cantidad ingresada es un número entero válido
-        Dim cantidadSolicitada As Integer
-        If Integer.TryParse(txtCantidadd.Text, cantidadSolicitada) Then
-            ' Obtener el stock disponible del repuesto seleccionado
-            If Not String.IsNullOrEmpty(txtNomRepuesto.Text) Then
-                Using conn As New MySqlConnection(connectionString)
-                    Try
-                        conn.Open()
-                        Dim query As String = "SELECT CantidadStock FROM repuestos WHERE NombreRepuesto = @NombreRepuesto"
-                        Using cmd As New MySqlCommand(query, conn)
-                            cmd.Parameters.AddWithValue("@NombreRepuesto", txtNomRepuesto.Text)
-                            Dim stockDisponible As Object = cmd.ExecuteScalar()
-                            If stockDisponible IsNot Nothing Then
-                                Dim stock As Integer = Convert.ToInt32(stockDisponible)
-                                If cantidadSolicitada > stock Then
-                                    MessageBox.Show("La cantidad solicitada es mayor que el stock disponible.", "Stock Insuficiente", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                                    txtMonto.Clear()
-                                Else
-                                    ' Calcular el monto total
-                                    Dim precioUnitario As Decimal
-                                    If Decimal.TryParse(txtPrecioo.Text, precioUnitario) Then
-                                        Dim montoTotal As Decimal = cantidadSolicitada * precioUnitario
-                                        txtMonto.Text = montoTotal.ToString("F2")
-                                    End If
-                                End If
-                            End If
-                        End Using
-                    Catch ex As Exception
-                        MessageBox.Show("Error al verificar el stock: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End Try
-                End Using
-            End If
-        Else
-            ' Si la cantidad ingresada no es válida, limpiar el monto
-            txtMonto.Clear()
-        End If
-    End Sub
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles btnVerTodos.Click
-        Using conn As New MySqlConnection(connectionString)
-            Try
-                conn.Open()
-                'consulta para seleccionar todos los registros de la tabla usuarios
-                Dim query = "SELECT * FROM ventasrepuestos"
-
-                Using cmd As New MySqlCommand(query, conn)
-                    Dim adapter As New MySqlDataAdapter(cmd)
-                    Dim table As New DataTable
-                    adapter.Fill(table)
-
-                    If table.Rows.Count > 0 Then
-                        MessageBox.Show("Historial de venta encontrados: " & table.Rows.Count.ToString)
-
-                        'borra las columnas anteriores si existen
-                        DataGridHistorialVentas.Columns.Clear()
-
-                        'genera columnas automaticamente
-                        DataGridHistorialVentas.AutoGenerateColumns = True
-
-                        'asigna el DataSource con todos los registros y refresca
-                        DataGridHistorialVentas.DataSource = table
-
-                        'ajusta el tamaño del DataGridView1
-                        DataGridHistorialVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-                        DataGridHistorialVentas.Refresh()
-
-                    Else
-                        MessageBox.Show("No hay repuestos registrados en la base de datos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    End If
-                End Using
-            Catch ex As Exception
-                MessageBox.Show("Error al conectar con la base de datos: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End Using
-    End Sub
-
-    Private Sub HistorialDeVentasToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HistorialDeVentasToolStripMenuItem.Click
-        ShowPanel(panelHistorialVentas)
-    End Sub
-
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnBuscarVentas.Click
-
-        Dim criterio = txtNomRep.Text
-
-        If criterio = "" Then
-            MessageBox.Show("Por favor, ingrese un ID o descripción.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End If
-
-        Using conn As New MySqlConnection(connectionString)
-            Try
-                conn.Open()
-
-                Dim query As String
-                If IsNumeric(criterio) Then
-                    query = "SELECT * FROM ventasrepuestos WHERE RepuestoID = @criterio"
-                Else
-                    query = "SELECT * FROM ventasrepuestos WHERE NombreRepuesto LIKE @criterio"
-                End If
-
-                Using cmd As New MySqlCommand(query, conn)
-                    If IsNumeric(criterio) Then
-                        cmd.Parameters.AddWithValue("@criterio", criterio)
-                    Else
-                        cmd.Parameters.AddWithValue("@criterio", criterio & "%")
-                    End If
-
-                    Dim adapter As New MySqlDataAdapter(cmd)
-                    Dim table As New DataTable
-                    adapter.Fill(table)
-
-                    If table.Rows.Count > 0 Then
-                        DataGridHistorialVentas.Columns.Clear()
-
-                        'genera columnas automaticamente
-                        DataGridHistorialVentas.AutoGenerateColumns = True
-
-                        'asigna el DataSource y refresca
-                        DataGridHistorialVentas.DataSource = table
-
-                        'ajusta el tamaño del DataGridView1 para que ocupe todo el espacio disponible
-                        DataGridHistorialVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-                        DataGridHistorialVentas.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
-                        DataGridHistorialVentas.Refresh()
-
-                    Else
-                        MessageBox.Show("Repuesto no encontrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    End If
-                End Using
-            Catch ex As Exception
-                MessageBox.Show("Error al conectar con la base de datos: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End Using
     End Sub
 End Class

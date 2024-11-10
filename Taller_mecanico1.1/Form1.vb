@@ -3,6 +3,7 @@
 Public Class Form1
     ' Declarar la conexión sin inicializarla
     Dim conexion As MySqlConnection
+    Public Property TipoUsuario As String
 
     ' Evento Load del Formulario
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -13,14 +14,6 @@ Public Class Form1
         ' Establecer "Español" como el idioma predeterminado
         ComboBox1.SelectedItem = "Español"
     End Sub
-
-    ' Método público para limpiar los campos de inicio de sesión
-    Public Sub ClearLoginFields()
-        txtNombreUsuario.Clear()
-        txtContrasena.Clear()
-    End Sub
-
-
 
     ' Evento SelectedIndexChanged del ComboBox1
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
@@ -66,7 +59,7 @@ Public Class Form1
 
         Try
             ' Inicializar la conexión
-            conexion = New MySqlConnection("Server=localhost;Database=taller;User ID=root;Password=Hola.,123;SslMode=None;AllowPublicKeyRetrieval=True;")
+            conexion = New MySqlConnection("Server=localhost;Database=taller;User ID=root;Password=Maju2223;SslMode=None;AllowPublicKeyRetrieval=True;")
 
             ' Comando SQL para verificar los datos del usuario
             Dim query As String = "SELECT Correo, Tipo FROM usuarios WHERE Correo = @NombreUsuario AND Contraseña = @Contrasena"
@@ -92,17 +85,25 @@ Public Class Form1
                 lector.Close()
                 conexion.Close()
 
-                ' Asignar el tipo de usuario a la variable global
-                Globals.LoggedInUserType = tipoUsuario
+                ' Abrir el Form2 y pasar el tipo de usuario
+                Dim form2 As New Form2()
+                form2.TipoUsuario = tipoUsuario ' Asignar el tipo de usuario a la propiedad en Form2
 
                 ' Configurar el mensaje de bienvenida
-                Form2.Instance.lblBienvenido.Text = If(ComboBox1.SelectedItem.ToString() = "English", $"Welcome, {nombre}", $"Bienvenido, {nombre}")
+                form2.lblBienvenido.Text = If(ComboBox1.SelectedItem.ToString() = "English", $"Welcome, {nombre}", $"Bienvenido, {nombre}")
+
+                ' Habilitar o deshabilitar botones según el tipo de usuario
+                If tipoUsuario = "Administrador" OrElse tipoUsuario = "Gerente" Then
+                    form2.btnUsuarios.Enabled = True
+                    form2.btnEmpleados.Enabled = True
+                Else
+                    form2.btnUsuarios.Enabled = False
+                    form2.btnEmpleados.Enabled = False
+                End If
 
                 ' Mostrar Form2 centrado
-                Form2.Instance.StartPosition = FormStartPosition.CenterScreen
-
-                ' Mostrar Form2 usando la instancia singleton
-                Form2.Instance.Show()
+                form2.StartPosition = FormStartPosition.CenterScreen
+                form2.Show()
 
                 ' Ocultar el Form1
                 Me.Hide()
@@ -127,4 +128,3 @@ Public Class Form1
         End Try
     End Sub
 End Class
-
