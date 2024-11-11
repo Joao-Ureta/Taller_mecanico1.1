@@ -2,7 +2,7 @@
 
 Public Class Form3
 
-    Dim connectionString As String = "Server=localhost;Database=taller;User ID=root;Password=Hola.,123;SslMode=None;AllowPublicKeyRetrieval=True;"
+    Dim connectionString As String = "Server=localhost;Database=taller;User ID=root;Password=Maju2223;SslMode=None;AllowPublicKeyRetrieval=True;"
     Private connection As MySqlConnection
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load

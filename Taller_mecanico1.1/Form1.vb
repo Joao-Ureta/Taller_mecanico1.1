@@ -66,7 +66,7 @@ Public Class Form1
 
         Try
             ' Inicializar la conexión
-            conexion = New MySqlConnection("Server=localhost;Database=taller;User ID=root;Password=Hola.,123;SslMode=None;AllowPublicKeyRetrieval=True;")
+            conexion = New MySqlConnection("Server=localhost;Database=taller;User ID=root;Password=Maju2223;SslMode=None;AllowPublicKeyRetrieval=True;")
 
             ' Comando SQL para verificar los datos del usuario
             Dim query As String = "SELECT Correo, Tipo FROM usuarios WHERE Correo = @NombreUsuario AND Contraseña = @Contrasena"

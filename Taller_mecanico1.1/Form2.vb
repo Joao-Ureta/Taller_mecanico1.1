@@ -88,4 +88,16 @@
         Me.Close()
 
     End Sub
+
+    Private Sub btnSieniestros_Click(sender As Object, e As EventArgs) Handles btnSieniestros.Click
+        'codigo para ir a form5 (gestion usuarios)
+        Form5.Show()
+        Me.Close()
+    End Sub
+
+    Private Sub btnClientes_Click(sender As Object, e As EventArgs) Handles btnClientes.Click
+        'codigo para ir a form5 (gestion usuarios)
+        Form6.Show()
+        Me.Close()
+    End Sub
 End Class
