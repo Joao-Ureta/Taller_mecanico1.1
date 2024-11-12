@@ -74,7 +74,7 @@ Partial Class Form5
         lblTitulo.AutoSize = True
         lblTitulo.Font = New Font("Arial Black", 24F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lblTitulo.ForeColor = SystemColors.ButtonHighlight
-        lblTitulo.Location = New Point(317, 24)
+        lblTitulo.Location = New Point(320, 9)
         lblTitulo.Name = "lblTitulo"
         lblTitulo.Size = New Size(489, 56)
         lblTitulo.TabIndex = 14
@@ -90,9 +90,9 @@ Partial Class Form5
         Panel1.Controls.Add(btnBuscar)
         Panel1.Controls.Add(txtCliente)
         Panel1.Controls.Add(lblCliente)
-        Panel1.Location = New Point(67, 128)
+        Panel1.Location = New Point(55, 64)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(1013, 407)
+        Panel1.Size = New Size(1013, 313)
         Panel1.TabIndex = 15
         ' 
         ' DataGridView1
@@ -102,7 +102,7 @@ Partial Class Form5
         DataGridView1.Location = New Point(3, 118)
         DataGridView1.Name = "DataGridView1"
         DataGridView1.RowHeadersWidth = 51
-        DataGridView1.Size = New Size(1003, 264)
+        DataGridView1.Size = New Size(1003, 186)
         DataGridView1.TabIndex = 24
         ' 
         ' ID
@@ -226,7 +226,7 @@ Partial Class Form5
         ' 
         Label1.AutoSize = True
         Label1.ForeColor = Color.White
-        Label1.Location = New Point(90, 117)
+        Label1.Location = New Point(78, 53)
         Label1.Name = "Label1"
         Label1.Size = New Size(160, 20)
         Label1.TabIndex = 0
@@ -253,7 +253,7 @@ Partial Class Form5
         Panel2.Controls.Add(lblID)
         Panel2.Controls.Add(chbxModificar)
         Panel2.Controls.Add(chbxIngresar)
-        Panel2.Location = New Point(543, 562)
+        Panel2.Location = New Point(503, 390)
         Panel2.Name = "Panel2"
         Panel2.Size = New Size(537, 515)
         Panel2.TabIndex = 16
@@ -459,7 +459,7 @@ Partial Class Form5
         ' 
         Label3.AutoSize = True
         Label3.ForeColor = Color.White
-        Label3.Location = New Point(564, 552)
+        Label3.Location = New Point(524, 380)
         Label3.Name = "Label3"
         Label3.Size = New Size(145, 20)
         Label3.TabIndex = 17
@@ -480,7 +480,7 @@ Partial Class Form5
         btnVolver.ForeColor = Color.White
         btnVolver.Image = My.Resources.Resources.volver
         btnVolver.ImageAlign = ContentAlignment.MiddleRight
-        btnVolver.Location = New Point(213, 1029)
+        btnVolver.Location = New Point(173, 857)
         btnVolver.Name = "btnVolver"
         btnVolver.Padding = New Padding(0, 0, 15, 0)
         btnVolver.Size = New Size(159, 48)
@@ -492,7 +492,7 @@ Partial Class Form5
         ' 
         PictureBox2.BorderStyle = BorderStyle.Fixed3D
         PictureBox2.Image = My.Resources.Resources.Form5Siniestro
-        PictureBox2.Location = New Point(114, 630)
+        PictureBox2.Location = New Point(74, 458)
         PictureBox2.Name = "PictureBox2"
         PictureBox2.Size = New Size(342, 338)
         PictureBox2.TabIndex = 21
@@ -503,7 +503,7 @@ Partial Class Form5
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.FromArgb(CByte(35), CByte(35), CByte(35))
-        ClientSize = New Size(1130, 1107)
+        ClientSize = New Size(1130, 919)
         Controls.Add(PictureBox2)
         Controls.Add(btnVolver)
         Controls.Add(PictureBox1)
