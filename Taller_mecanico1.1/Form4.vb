@@ -863,28 +863,18 @@ Public Class Form4
             Return
         End If
 
-        ' Verificar si el RUT del cliente existe en la tabla 'clientes'
-        Dim rutCliente As String = TxtRutCliente.Text.Trim()
-        Dim clienteExiste As Boolean = False
-        Using conn As New MySqlConnection(connectionString)
-            Try
-                conn.Open()
-                Dim queryCliente As String = "SELECT COUNT(*) FROM clientes WHERE Rut = @Rut"
-                Using cmd As New MySqlCommand(queryCliente, conn)
-                    cmd.Parameters.AddWithValue("@Rut", rutCliente)
-                    Dim count As Integer = Convert.ToInt32(cmd.ExecuteScalar())
-                    If count > 0 Then
-                        clienteExiste = True
-                    Else
-                        MessageBox.Show("El RUT del cliente no está registrado.", "Cliente No Encontrado", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                        Return
-                    End If
-                End Using
-            Catch ex As Exception
-                MessageBox.Show("Error al verificar el cliente: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Return
-            End Try
-        End Using
+        ' Verificar si el Rut ingresado existe en la base de datos
+        Dim rut As String = TxtRutCliente.Text.Trim()
+        If Not RutExiste(rut) Then
+            Dim result As DialogResult = MessageBox.Show("El cliente con este Rut no existe. ¿Desea agregarlo?", "Cliente no encontrado", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+            If result = DialogResult.Yes Then
+                ' Abrir el Form6 para agregar el nuevo cliente
+                Dim gestionClientesForm As New Form6()
+                gestionClientesForm.Show()
+            End If
+            Return
+        End If
 
         ' Obtener detalles del repuesto
         Dim nombreRepuesto As String = txtNomRepuesto.Text.Trim()
@@ -952,7 +942,7 @@ Public Class Form4
                         Using cmd As New MySqlCommand(queryInsertVenta, conn, transaction)
                             cmd.Parameters.AddWithValue("@NombreRepuesto", nombreRepuesto)
                             cmd.Parameters.AddWithValue("@CantidadVendida", cantidadSolicitada)
-                            cmd.Parameters.AddWithValue("@Cliente", rutCliente)
+                            cmd.Parameters.AddWithValue("@Cliente", If(String.IsNullOrWhiteSpace(TxtRutCliente.Text), DBNull.Value, TxtRutCliente.Text.Trim()))
                             cmd.Parameters.AddWithValue("@FechaVenta", DateTime.Parse(txtFecha.Text))
                             cmd.Parameters.AddWithValue("@Total", montoTotal)
                             cmd.ExecuteNonQuery()
@@ -984,6 +974,25 @@ Public Class Form4
             End Try
         End Using
     End Sub
+
+    ' Función para verificar si el Rut existe en la base de datos
+    Private Function RutExiste(rut As String) As Boolean
+        Try
+            Using connection As New MySqlConnection(connectionString)
+                connection.Open()
+                ' Consulta para verificar si el Rut existe en la tabla clientes
+                Dim query As String = "SELECT COUNT(*) FROM clientes WHERE Rut = @Rut"
+                Using command As New MySqlCommand(query, connection)
+                    command.Parameters.AddWithValue("@Rut", rut)
+                    Dim count As Integer = Convert.ToInt32(command.ExecuteScalar())
+                    Return count > 0
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error al verificar el Rut: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
 
 
     Private Sub DataGridVentas_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridVentas.CellContentClick

@@ -24,12 +24,6 @@ Partial Class Form6
     Private Sub InitializeComponent()
         lblTitulo = New Label()
         Panel1 = New Panel()
-        lblCliente = New Label()
-        Label1 = New Label()
-        txtCliente = New TextBox()
-        btnBuscar = New Button()
-        btnVerTodo = New Button()
-        Label2 = New Label()
         DataGridView1 = New DataGridView()
         Rut = New DataGridViewTextBoxColumn()
         Nombre = New DataGridViewTextBoxColumn()
@@ -38,28 +32,34 @@ Partial Class Form6
         Direccion = New DataGridViewTextBoxColumn()
         Telefono = New DataGridViewTextBoxColumn()
         Comuna = New DataGridViewTextBoxColumn()
+        Label2 = New Label()
+        btnVerTodo = New Button()
+        btnBuscar = New Button()
+        txtCliente = New TextBox()
+        lblCliente = New Label()
+        Label1 = New Label()
         pnlGestionClientes = New Panel()
-        Label3 = New Label()
-        chbxIngresar = New CheckBox()
-        chbxModificar = New CheckBox()
-        chbxEliminar = New CheckBox()
-        lblRut = New Label()
-        lblNombre = New Label()
-        lblApellidoP = New Label()
-        lblApellidoM = New Label()
-        lblDireccion = New Label()
-        lblTelefono = New Label()
-        lblComuna = New Label()
-        txtApellidoP = New TextBox()
-        txtApellidoM = New TextBox()
-        txtDireccion = New TextBox()
-        txtTelefono = New TextBox()
-        txtComuna = New TextBox()
-        txtNombre = New TextBox()
-        txtRut = New TextBox()
-        btnGuardar = New Button()
-        btnModificar = New Button()
         btnEliminar = New Button()
+        btnModificar = New Button()
+        btnGuardar = New Button()
+        txtRut = New TextBox()
+        txtNombre = New TextBox()
+        txtComuna = New TextBox()
+        txtTelefono = New TextBox()
+        txtDireccion = New TextBox()
+        txtApellidoM = New TextBox()
+        txtApellidoP = New TextBox()
+        lblComuna = New Label()
+        lblTelefono = New Label()
+        lblDireccion = New Label()
+        lblApellidoM = New Label()
+        lblApellidoP = New Label()
+        lblNombre = New Label()
+        lblRut = New Label()
+        chbxEliminar = New CheckBox()
+        chbxModificar = New CheckBox()
+        chbxIngresar = New CheckBox()
+        Label3 = New Label()
         PictureBox1 = New PictureBox()
         btnVolver = New Button()
         Panel1.SuspendLayout()
@@ -92,76 +92,6 @@ Partial Class Form6
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(1253, 338)
         Panel1.TabIndex = 13
-        ' 
-        ' lblCliente
-        ' 
-        lblCliente.AutoSize = True
-        lblCliente.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblCliente.ForeColor = Color.White
-        lblCliente.Location = New Point(248, 15)
-        lblCliente.Name = "lblCliente"
-        lblCliente.Size = New Size(83, 28)
-        lblCliente.TabIndex = 1
-        lblCliente.Text = "Cliente:"
-        ' 
-        ' Label1
-        ' 
-        Label1.AutoSize = True
-        Label1.ForeColor = Color.White
-        Label1.Location = New Point(49, 100)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(145, 20)
-        Label1.TabIndex = 14
-        Label1.Text = "Busqueda de cientes"
-        ' 
-        ' txtCliente
-        ' 
-        txtCliente.Location = New Point(337, 19)
-        txtCliente.Multiline = True
-        txtCliente.Name = "txtCliente"
-        txtCliente.Size = New Size(443, 28)
-        txtCliente.TabIndex = 2
-        ' 
-        ' btnBuscar
-        ' 
-        btnBuscar.BackColor = Color.DimGray
-        btnBuscar.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnBuscar.ForeColor = Color.White
-        btnBuscar.Image = My.Resources.Resources.buscar
-        btnBuscar.ImageAlign = ContentAlignment.MiddleRight
-        btnBuscar.Location = New Point(802, 15)
-        btnBuscar.Name = "btnBuscar"
-        btnBuscar.Padding = New Padding(0, 0, 20, 0)
-        btnBuscar.Size = New Size(129, 35)
-        btnBuscar.TabIndex = 21
-        btnBuscar.Text = "Buscar"
-        btnBuscar.UseVisualStyleBackColor = False
-        ' 
-        ' btnVerTodo
-        ' 
-        btnVerTodo.BackColor = Color.DimGray
-        btnVerTodo.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnVerTodo.ForeColor = Color.White
-        btnVerTodo.Image = My.Resources.Resources.visualizar_2
-        btnVerTodo.ImageAlign = ContentAlignment.MiddleRight
-        btnVerTodo.Location = New Point(937, 14)
-        btnVerTodo.Name = "btnVerTodo"
-        btnVerTodo.Padding = New Padding(0, 0, 20, 0)
-        btnVerTodo.Size = New Size(149, 36)
-        btnVerTodo.TabIndex = 24
-        btnVerTodo.Text = "Ver todo"
-        btnVerTodo.UseVisualStyleBackColor = False
-        ' 
-        ' Label2
-        ' 
-        Label2.AutoSize = True
-        Label2.Font = New Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        Label2.ForeColor = Color.White
-        Label2.Location = New Point(337, 50)
-        Label2.Name = "Label2"
-        Label2.Size = New Size(204, 17)
-        Label2.TabIndex = 25
-        Label2.Text = "(Ingrese Rut o nombre de cliente)"
         ' 
         ' DataGridView1
         ' 
@@ -222,6 +152,76 @@ Partial Class Form6
         Comuna.Name = "Comuna"
         Comuna.Width = 125
         ' 
+        ' Label2
+        ' 
+        Label2.AutoSize = True
+        Label2.Font = New Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Label2.ForeColor = Color.White
+        Label2.Location = New Point(337, 50)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(204, 17)
+        Label2.TabIndex = 25
+        Label2.Text = "(Ingrese Rut o nombre de cliente)"
+        ' 
+        ' btnVerTodo
+        ' 
+        btnVerTodo.BackColor = Color.DimGray
+        btnVerTodo.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnVerTodo.ForeColor = Color.White
+        btnVerTodo.Image = My.Resources.Resources.visualizar_2
+        btnVerTodo.ImageAlign = ContentAlignment.MiddleRight
+        btnVerTodo.Location = New Point(937, 14)
+        btnVerTodo.Name = "btnVerTodo"
+        btnVerTodo.Padding = New Padding(0, 0, 20, 0)
+        btnVerTodo.Size = New Size(149, 36)
+        btnVerTodo.TabIndex = 24
+        btnVerTodo.Text = "Ver todo"
+        btnVerTodo.UseVisualStyleBackColor = False
+        ' 
+        ' btnBuscar
+        ' 
+        btnBuscar.BackColor = Color.DimGray
+        btnBuscar.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnBuscar.ForeColor = Color.White
+        btnBuscar.Image = My.Resources.Resources.buscar
+        btnBuscar.ImageAlign = ContentAlignment.MiddleRight
+        btnBuscar.Location = New Point(802, 15)
+        btnBuscar.Name = "btnBuscar"
+        btnBuscar.Padding = New Padding(0, 0, 20, 0)
+        btnBuscar.Size = New Size(129, 35)
+        btnBuscar.TabIndex = 21
+        btnBuscar.Text = "Buscar"
+        btnBuscar.UseVisualStyleBackColor = False
+        ' 
+        ' txtCliente
+        ' 
+        txtCliente.Location = New Point(337, 19)
+        txtCliente.Multiline = True
+        txtCliente.Name = "txtCliente"
+        txtCliente.Size = New Size(443, 28)
+        txtCliente.TabIndex = 2
+        ' 
+        ' lblCliente
+        ' 
+        lblCliente.AutoSize = True
+        lblCliente.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblCliente.ForeColor = Color.White
+        lblCliente.Location = New Point(248, 15)
+        lblCliente.Name = "lblCliente"
+        lblCliente.Size = New Size(83, 28)
+        lblCliente.TabIndex = 1
+        lblCliente.Text = "Cliente:"
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.ForeColor = Color.White
+        Label1.Location = New Point(49, 100)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(145, 20)
+        Label1.TabIndex = 14
+        Label1.Text = "Busqueda de cientes"
+        ' 
         ' pnlGestionClientes
         ' 
         pnlGestionClientes.BorderStyle = BorderStyle.Fixed3D
@@ -250,205 +250,21 @@ Partial Class Form6
         pnlGestionClientes.Size = New Size(851, 438)
         pnlGestionClientes.TabIndex = 15
         ' 
-        ' Label3
+        ' btnEliminar
         ' 
-        Label3.AutoSize = True
-        Label3.ForeColor = Color.White
-        Label3.Location = New Point(53, 464)
-        Label3.Name = "Label3"
-        Label3.Size = New Size(113, 20)
-        Label3.TabIndex = 16
-        Label3.Text = "Gestion clientes"
-        ' 
-        ' chbxIngresar
-        ' 
-        chbxIngresar.AutoSize = True
-        chbxIngresar.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        chbxIngresar.ForeColor = Color.White
-        chbxIngresar.Location = New Point(18, 20)
-        chbxIngresar.Name = "chbxIngresar"
-        chbxIngresar.Size = New Size(139, 24)
-        chbxIngresar.TabIndex = 35
-        chbxIngresar.Text = "Ingresar cliente"
-        chbxIngresar.UseVisualStyleBackColor = True
-        ' 
-        ' chbxModificar
-        ' 
-        chbxModificar.AutoSize = True
-        chbxModificar.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        chbxModificar.ForeColor = Color.White
-        chbxModificar.Location = New Point(183, 20)
-        chbxModificar.Name = "chbxModificar"
-        chbxModificar.Size = New Size(148, 24)
-        chbxModificar.TabIndex = 36
-        chbxModificar.Text = "Modificar cliente"
-        chbxModificar.UseVisualStyleBackColor = True
-        ' 
-        ' chbxEliminar
-        ' 
-        chbxEliminar.AutoSize = True
-        chbxEliminar.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        chbxEliminar.ForeColor = Color.White
-        chbxEliminar.Location = New Point(353, 20)
-        chbxEliminar.Name = "chbxEliminar"
-        chbxEliminar.Size = New Size(138, 24)
-        chbxEliminar.TabIndex = 37
-        chbxEliminar.Text = "Eliminar cliente"
-        chbxEliminar.UseVisualStyleBackColor = True
-        ' 
-        ' lblRut
-        ' 
-        lblRut.AutoSize = True
-        lblRut.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblRut.ForeColor = Color.White
-        lblRut.Location = New Point(18, 114)
-        lblRut.Name = "lblRut"
-        lblRut.Size = New Size(50, 28)
-        lblRut.TabIndex = 38
-        lblRut.Text = "Rut:"
-        ' 
-        ' lblNombre
-        ' 
-        lblNombre.AutoSize = True
-        lblNombre.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblNombre.ForeColor = Color.White
-        lblNombre.Location = New Point(18, 152)
-        lblNombre.Name = "lblNombre"
-        lblNombre.Size = New Size(94, 28)
-        lblNombre.TabIndex = 39
-        lblNombre.Text = "Nombre:"
-        ' 
-        ' lblApellidoP
-        ' 
-        lblApellidoP.AutoSize = True
-        lblApellidoP.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblApellidoP.ForeColor = Color.White
-        lblApellidoP.Location = New Point(18, 189)
-        lblApellidoP.Name = "lblApellidoP"
-        lblApellidoP.Size = New Size(176, 28)
-        lblApellidoP.TabIndex = 40
-        lblApellidoP.Text = "Apellido paterno:"
-        lblApellidoP.TextAlign = ContentAlignment.TopCenter
-        ' 
-        ' lblApellidoM
-        ' 
-        lblApellidoM.AutoSize = True
-        lblApellidoM.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblApellidoM.ForeColor = Color.White
-        lblApellidoM.Location = New Point(18, 226)
-        lblApellidoM.Name = "lblApellidoM"
-        lblApellidoM.Size = New Size(182, 28)
-        lblApellidoM.TabIndex = 41
-        lblApellidoM.Text = "Apellido materno:"
-        lblApellidoM.TextAlign = ContentAlignment.TopCenter
-        ' 
-        ' lblDireccion
-        ' 
-        lblDireccion.AutoSize = True
-        lblDireccion.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblDireccion.ForeColor = Color.White
-        lblDireccion.Location = New Point(18, 263)
-        lblDireccion.Name = "lblDireccion"
-        lblDireccion.Size = New Size(107, 28)
-        lblDireccion.TabIndex = 42
-        lblDireccion.Text = "Direccion:"
-        lblDireccion.TextAlign = ContentAlignment.TopCenter
-        ' 
-        ' lblTelefono
-        ' 
-        lblTelefono.AutoSize = True
-        lblTelefono.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblTelefono.ForeColor = Color.White
-        lblTelefono.Location = New Point(18, 301)
-        lblTelefono.Name = "lblTelefono"
-        lblTelefono.Size = New Size(99, 28)
-        lblTelefono.TabIndex = 43
-        lblTelefono.Text = "Teléfono:"
-        lblTelefono.TextAlign = ContentAlignment.TopCenter
-        ' 
-        ' lblComuna
-        ' 
-        lblComuna.AutoSize = True
-        lblComuna.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblComuna.ForeColor = Color.White
-        lblComuna.Location = New Point(18, 338)
-        lblComuna.Name = "lblComuna"
-        lblComuna.Size = New Size(94, 28)
-        lblComuna.TabIndex = 44
-        lblComuna.Text = "Comuna:"
-        lblComuna.TextAlign = ContentAlignment.TopCenter
-        ' 
-        ' txtApellidoP
-        ' 
-        txtApellidoP.Location = New Point(217, 189)
-        txtApellidoP.Multiline = True
-        txtApellidoP.Name = "txtApellidoP"
-        txtApellidoP.Size = New Size(228, 28)
-        txtApellidoP.TabIndex = 45
-        ' 
-        ' txtApellidoM
-        ' 
-        txtApellidoM.Location = New Point(217, 226)
-        txtApellidoM.Multiline = True
-        txtApellidoM.Name = "txtApellidoM"
-        txtApellidoM.Size = New Size(228, 28)
-        txtApellidoM.TabIndex = 46
-        ' 
-        ' txtDireccion
-        ' 
-        txtDireccion.Location = New Point(217, 263)
-        txtDireccion.Multiline = True
-        txtDireccion.Name = "txtDireccion"
-        txtDireccion.Size = New Size(324, 28)
-        txtDireccion.TabIndex = 47
-        ' 
-        ' txtTelefono
-        ' 
-        txtTelefono.Location = New Point(217, 301)
-        txtTelefono.Multiline = True
-        txtTelefono.Name = "txtTelefono"
-        txtTelefono.Size = New Size(183, 28)
-        txtTelefono.TabIndex = 48
-        ' 
-        ' txtComuna
-        ' 
-        txtComuna.Location = New Point(217, 338)
-        txtComuna.Multiline = True
-        txtComuna.Name = "txtComuna"
-        txtComuna.Size = New Size(228, 28)
-        txtComuna.TabIndex = 49
-        ' 
-        ' txtNombre
-        ' 
-        txtNombre.Location = New Point(217, 152)
-        txtNombre.Multiline = True
-        txtNombre.Name = "txtNombre"
-        txtNombre.Size = New Size(228, 28)
-        txtNombre.TabIndex = 50
-        ' 
-        ' txtRut
-        ' 
-        txtRut.Location = New Point(217, 114)
-        txtRut.Multiline = True
-        txtRut.Name = "txtRut"
-        txtRut.Size = New Size(183, 28)
-        txtRut.TabIndex = 51
-        ' 
-        ' btnGuardar
-        ' 
-        btnGuardar.BackColor = Color.DimGray
-        btnGuardar.Enabled = False
-        btnGuardar.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnGuardar.ForeColor = Color.White
-        btnGuardar.Image = My.Resources.Resources.guardar
-        btnGuardar.ImageAlign = ContentAlignment.MiddleRight
-        btnGuardar.Location = New Point(607, 114)
-        btnGuardar.Name = "btnGuardar"
-        btnGuardar.Padding = New Padding(0, 0, 30, 0)
-        btnGuardar.Size = New Size(227, 61)
-        btnGuardar.TabIndex = 52
-        btnGuardar.Text = "Guardar"
-        btnGuardar.UseVisualStyleBackColor = False
+        btnEliminar.BackColor = Color.DimGray
+        btnEliminar.Enabled = False
+        btnEliminar.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnEliminar.ForeColor = Color.White
+        btnEliminar.Image = My.Resources.Resources.eliminar
+        btnEliminar.ImageAlign = ContentAlignment.MiddleRight
+        btnEliminar.Location = New Point(607, 301)
+        btnEliminar.Name = "btnEliminar"
+        btnEliminar.Padding = New Padding(0, 0, 30, 0)
+        btnEliminar.Size = New Size(227, 61)
+        btnEliminar.TabIndex = 54
+        btnEliminar.Text = "Eliminar"
+        btnEliminar.UseVisualStyleBackColor = False
         ' 
         ' btnModificar
         ' 
@@ -466,21 +282,212 @@ Partial Class Form6
         btnModificar.Text = "Modificar"
         btnModificar.UseVisualStyleBackColor = False
         ' 
-        ' btnEliminar
+        ' btnGuardar
         ' 
-        btnEliminar.BackColor = Color.DimGray
-        btnEliminar.Enabled = False
-        btnEliminar.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        btnEliminar.ForeColor = Color.White
-        btnEliminar.Image = My.Resources.Resources.eliminar
-        btnEliminar.ImageAlign = ContentAlignment.MiddleRight
-        btnEliminar.Location = New Point(607, 301)
-        btnEliminar.Name = "btnEliminar"
-        btnEliminar.Padding = New Padding(0, 0, 30, 0)
-        btnEliminar.Size = New Size(227, 61)
-        btnEliminar.TabIndex = 54
-        btnEliminar.Text = "Eliminar"
-        btnEliminar.UseVisualStyleBackColor = False
+        btnGuardar.BackColor = Color.DimGray
+        btnGuardar.Enabled = False
+        btnGuardar.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnGuardar.ForeColor = Color.White
+        btnGuardar.Image = My.Resources.Resources.guardar
+        btnGuardar.ImageAlign = ContentAlignment.MiddleRight
+        btnGuardar.Location = New Point(607, 114)
+        btnGuardar.Name = "btnGuardar"
+        btnGuardar.Padding = New Padding(0, 0, 30, 0)
+        btnGuardar.Size = New Size(227, 61)
+        btnGuardar.TabIndex = 52
+        btnGuardar.Text = "Guardar"
+        btnGuardar.UseVisualStyleBackColor = False
+        ' 
+        ' txtRut
+        ' 
+        txtRut.Enabled = False
+        txtRut.Location = New Point(217, 114)
+        txtRut.Multiline = True
+        txtRut.Name = "txtRut"
+        txtRut.Size = New Size(183, 28)
+        txtRut.TabIndex = 51
+        ' 
+        ' txtNombre
+        ' 
+        txtNombre.Enabled = False
+        txtNombre.Location = New Point(217, 152)
+        txtNombre.Multiline = True
+        txtNombre.Name = "txtNombre"
+        txtNombre.Size = New Size(228, 28)
+        txtNombre.TabIndex = 50
+        ' 
+        ' txtComuna
+        ' 
+        txtComuna.Enabled = False
+        txtComuna.Location = New Point(217, 338)
+        txtComuna.Multiline = True
+        txtComuna.Name = "txtComuna"
+        txtComuna.Size = New Size(228, 28)
+        txtComuna.TabIndex = 49
+        ' 
+        ' txtTelefono
+        ' 
+        txtTelefono.Enabled = False
+        txtTelefono.Location = New Point(217, 301)
+        txtTelefono.Multiline = True
+        txtTelefono.Name = "txtTelefono"
+        txtTelefono.Size = New Size(183, 28)
+        txtTelefono.TabIndex = 48
+        ' 
+        ' txtDireccion
+        ' 
+        txtDireccion.Enabled = False
+        txtDireccion.Location = New Point(217, 263)
+        txtDireccion.Multiline = True
+        txtDireccion.Name = "txtDireccion"
+        txtDireccion.Size = New Size(324, 28)
+        txtDireccion.TabIndex = 47
+        ' 
+        ' txtApellidoM
+        ' 
+        txtApellidoM.Enabled = False
+        txtApellidoM.Location = New Point(217, 226)
+        txtApellidoM.Multiline = True
+        txtApellidoM.Name = "txtApellidoM"
+        txtApellidoM.Size = New Size(228, 28)
+        txtApellidoM.TabIndex = 46
+        ' 
+        ' txtApellidoP
+        ' 
+        txtApellidoP.Enabled = False
+        txtApellidoP.Location = New Point(217, 189)
+        txtApellidoP.Multiline = True
+        txtApellidoP.Name = "txtApellidoP"
+        txtApellidoP.Size = New Size(228, 28)
+        txtApellidoP.TabIndex = 45
+        ' 
+        ' lblComuna
+        ' 
+        lblComuna.AutoSize = True
+        lblComuna.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblComuna.ForeColor = Color.White
+        lblComuna.Location = New Point(18, 338)
+        lblComuna.Name = "lblComuna"
+        lblComuna.Size = New Size(94, 28)
+        lblComuna.TabIndex = 44
+        lblComuna.Text = "Comuna:"
+        lblComuna.TextAlign = ContentAlignment.TopCenter
+        ' 
+        ' lblTelefono
+        ' 
+        lblTelefono.AutoSize = True
+        lblTelefono.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblTelefono.ForeColor = Color.White
+        lblTelefono.Location = New Point(18, 301)
+        lblTelefono.Name = "lblTelefono"
+        lblTelefono.Size = New Size(99, 28)
+        lblTelefono.TabIndex = 43
+        lblTelefono.Text = "Teléfono:"
+        lblTelefono.TextAlign = ContentAlignment.TopCenter
+        ' 
+        ' lblDireccion
+        ' 
+        lblDireccion.AutoSize = True
+        lblDireccion.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblDireccion.ForeColor = Color.White
+        lblDireccion.Location = New Point(18, 263)
+        lblDireccion.Name = "lblDireccion"
+        lblDireccion.Size = New Size(107, 28)
+        lblDireccion.TabIndex = 42
+        lblDireccion.Text = "Direccion:"
+        lblDireccion.TextAlign = ContentAlignment.TopCenter
+        ' 
+        ' lblApellidoM
+        ' 
+        lblApellidoM.AutoSize = True
+        lblApellidoM.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblApellidoM.ForeColor = Color.White
+        lblApellidoM.Location = New Point(18, 226)
+        lblApellidoM.Name = "lblApellidoM"
+        lblApellidoM.Size = New Size(182, 28)
+        lblApellidoM.TabIndex = 41
+        lblApellidoM.Text = "Apellido materno:"
+        lblApellidoM.TextAlign = ContentAlignment.TopCenter
+        ' 
+        ' lblApellidoP
+        ' 
+        lblApellidoP.AutoSize = True
+        lblApellidoP.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblApellidoP.ForeColor = Color.White
+        lblApellidoP.Location = New Point(18, 189)
+        lblApellidoP.Name = "lblApellidoP"
+        lblApellidoP.Size = New Size(176, 28)
+        lblApellidoP.TabIndex = 40
+        lblApellidoP.Text = "Apellido paterno:"
+        lblApellidoP.TextAlign = ContentAlignment.TopCenter
+        ' 
+        ' lblNombre
+        ' 
+        lblNombre.AutoSize = True
+        lblNombre.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblNombre.ForeColor = Color.White
+        lblNombre.Location = New Point(18, 152)
+        lblNombre.Name = "lblNombre"
+        lblNombre.Size = New Size(94, 28)
+        lblNombre.TabIndex = 39
+        lblNombre.Text = "Nombre:"
+        ' 
+        ' lblRut
+        ' 
+        lblRut.AutoSize = True
+        lblRut.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblRut.ForeColor = Color.White
+        lblRut.Location = New Point(18, 114)
+        lblRut.Name = "lblRut"
+        lblRut.Size = New Size(50, 28)
+        lblRut.TabIndex = 38
+        lblRut.Text = "Rut:"
+        ' 
+        ' chbxEliminar
+        ' 
+        chbxEliminar.AutoSize = True
+        chbxEliminar.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        chbxEliminar.ForeColor = Color.White
+        chbxEliminar.Location = New Point(353, 20)
+        chbxEliminar.Name = "chbxEliminar"
+        chbxEliminar.Size = New Size(138, 24)
+        chbxEliminar.TabIndex = 37
+        chbxEliminar.Text = "Eliminar cliente"
+        chbxEliminar.UseVisualStyleBackColor = True
+        ' 
+        ' chbxModificar
+        ' 
+        chbxModificar.AutoSize = True
+        chbxModificar.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        chbxModificar.ForeColor = Color.White
+        chbxModificar.Location = New Point(183, 20)
+        chbxModificar.Name = "chbxModificar"
+        chbxModificar.Size = New Size(148, 24)
+        chbxModificar.TabIndex = 36
+        chbxModificar.Text = "Modificar cliente"
+        chbxModificar.UseVisualStyleBackColor = True
+        ' 
+        ' chbxIngresar
+        ' 
+        chbxIngresar.AutoSize = True
+        chbxIngresar.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        chbxIngresar.ForeColor = Color.White
+        chbxIngresar.Location = New Point(18, 20)
+        chbxIngresar.Name = "chbxIngresar"
+        chbxIngresar.Size = New Size(139, 24)
+        chbxIngresar.TabIndex = 35
+        chbxIngresar.Text = "Ingresar cliente"
+        chbxIngresar.UseVisualStyleBackColor = True
+        ' 
+        ' Label3
+        ' 
+        Label3.AutoSize = True
+        Label3.ForeColor = Color.White
+        Label3.Location = New Point(53, 464)
+        Label3.Name = "Label3"
+        Label3.Size = New Size(113, 20)
+        Label3.TabIndex = 16
+        Label3.Text = "Gestion clientes"
         ' 
         ' PictureBox1
         ' 
@@ -498,12 +505,12 @@ Partial Class Form6
         btnVolver.ForeColor = Color.White
         btnVolver.Image = My.Resources.Resources.volver
         btnVolver.ImageAlign = ContentAlignment.MiddleRight
-        btnVolver.Location = New Point(1023, 848)
+        btnVolver.Location = New Point(979, 848)
         btnVolver.Name = "btnVolver"
         btnVolver.Padding = New Padding(0, 0, 15, 0)
-        btnVolver.Size = New Size(159, 48)
+        btnVolver.Size = New Size(245, 48)
         btnVolver.TabIndex = 20
-        btnVolver.Text = "Volver"
+        btnVolver.Text = "Volver al menú"
         btnVolver.UseVisualStyleBackColor = False
         ' 
         ' Form6
@@ -520,6 +527,7 @@ Partial Class Form6
         Controls.Add(Panel1)
         Controls.Add(lblTitulo)
         Name = "Form6"
+        StartPosition = FormStartPosition.CenterScreen
         Text = "Clientes"
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()

@@ -341,11 +341,11 @@ Public Class Form5
     Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
         ' Verificar que todos los campos necesarios estén completos
         If String.IsNullOrWhiteSpace(txtDetalle.Text) Or
-       String.IsNullOrWhiteSpace(cbxEstado2.SelectedItem?.ToString()) Or
-       FecSiniestro.Value = DateTimePicker.MinimumDateTime OrElse
-       String.IsNullOrWhiteSpace(txtCliente2.Text) Or
-       String.IsNullOrWhiteSpace(cbxCompañia.SelectedItem?.ToString()) Or
-       String.IsNullOrWhiteSpace(cbxSeguro.SelectedItem?.ToString()) Then
+   String.IsNullOrWhiteSpace(cbxEstado2.SelectedItem?.ToString()) Or
+   FecSiniestro.Value = DateTimePicker.MinimumDateTime OrElse
+   String.IsNullOrWhiteSpace(txtCliente2.Text) Or
+   String.IsNullOrWhiteSpace(cbxCompañia.SelectedItem?.ToString()) Or
+   String.IsNullOrWhiteSpace(cbxSeguro.SelectedItem?.ToString()) Then
             MessageBox.Show("Por favor, complete todos los campos.", "Campos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
@@ -353,9 +353,7 @@ Public Class Form5
         ' Verificar si el Rut ingresado existe en la base de datos
         Dim rut As String = txtCliente2.Text.Trim()
         If Not RutExiste(rut) Then
-            Dim result As DialogResult = MessageBox.Show("El cliente con este Rut no existe. ¿Desea agregarlo?",
-                                             "Cliente no encontrado", MessageBoxButtons.YesNo,
-                                             MessageBoxIcon.Question)
+            Dim result As DialogResult = MessageBox.Show("El cliente con este Rut no existe. ¿Desea agregarlo?", "Cliente no encontrado", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
             If result = DialogResult.Yes Then
                 ' Abrir el Form6 para agregar el nuevo cliente
@@ -390,19 +388,36 @@ Public Class Form5
                     command.Parameters.AddWithValue("@Rut", If(String.IsNullOrWhiteSpace(txtCliente2.Text), DBNull.Value, txtCliente2.Text.Trim()))
                     command.Parameters.AddWithValue("@Estado_Seguro", If(String.IsNullOrWhiteSpace(cbxSeguro.SelectedItem?.ToString()), DBNull.Value, cbxSeguro.SelectedItem.ToString()))
 
+                    ' Ejecuta la consulta y obtiene el número de filas afectadas
                     Dim rowsAffected As Integer = command.ExecuteNonQuery()
+
+                    ' Obtener el ID autoincremental recién insertado
+                    Dim lastInsertedId As Integer = Convert.ToInt32(command.LastInsertedId)
+
                     If rowsAffected > 0 Then
                         MessageBox.Show("Datos guardados correctamente.", "Guardado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                        'limpiar los campos despues de guardado exitoso
-                        txtDetalle.Clear()
-                        cbxEstado2.SelectedIndex = -1 'restablece el comboBox a su estado inicial
-                        FecSiniestro.Value = DateTime.Now 'restablece los DateTimePicker a la fecha actual
-                        cbxCompañia.SelectedIndex = -1 'restablece el comboBox a su estado inicial
-                        txtCliente2.Clear()
-                        cbxSeguro.SelectedIndex = -1 'restablece el comboBox a su estado inicial
 
-                        'se actualiza el DataGridView despues de la eliminacion
-                        btnVerTodo_Click(sender, e) 'llama a la funcion que refresca la lista de usuarios
+                        ' Actualizar el DataGridView después de la inserción
+                        btnVerTodo_Click(sender, e) ' Llama a la función que refresca la lista de usuarios
+
+                        ' Seleccionar la fila con el nuevo ID generado
+                        For Each row As DataGridViewRow In DataGridView1.Rows
+                            If Convert.ToInt32(row.Cells("SiniestroID").Value) = lastInsertedId Then ' Asegúrate de cambiar "SiniestroID" por el nombre correcto de la columna
+                                row.Selected = True
+                                DataGridView1.FirstDisplayedScrollingRowIndex = row.Index ' Desplazar el DataGridView hasta el ítem seleccionado
+                                Exit For
+                            End If
+                        Next
+
+                        ' Limpiar los campos después de guardar exitosamente
+                        txtID.Clear()
+                        txtDetalle.Clear()
+                        cbxEstado2.SelectedIndex = -1
+                        FecSiniestro.Value = DateTime.Now
+                        cbxCompañia.SelectedIndex = -1
+                        txtCliente2.Clear()
+                        cbxSeguro.SelectedIndex = -1
+
                     Else
                         MessageBox.Show("Hubo un error al guardar los datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End If
