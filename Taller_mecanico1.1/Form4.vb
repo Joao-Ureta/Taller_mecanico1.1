@@ -16,7 +16,7 @@ Public Class Form4
 
             connection.Open()
 
-            'funcion para cargar comunas
+            'funcion para cargar clientes
             CargarClientes()
 
         Catch ex As MySqlException

@@ -83,21 +83,27 @@
 
     Private Sub btnRepuestos_Click(sender As Object, e As EventArgs) Handles btnRepuestos.Click
 
-        'codigo para ir a form4 (gestion usuarios)
+        'codigo para ir a form4 (gestion repuestos)
         Form4.Show()
         Me.Close()
 
     End Sub
 
     Private Sub btnSieniestros_Click(sender As Object, e As EventArgs) Handles btnSieniestros.Click
-        'codigo para ir a form5 (gestion usuarios)
+        'codigo para ir a form5 (gestion siniestros)
         Form5.Show()
         Me.Close()
     End Sub
 
     Private Sub btnClientes_Click(sender As Object, e As EventArgs) Handles btnClientes.Click
-        'codigo para ir a form5 (gestion usuarios)
+        'codigo para ir a form5 (gestion clientes)
         Form6.Show()
+        Me.Close()
+    End Sub
+
+    Private Sub btnServicios_Click(sender As Object, e As EventArgs) Handles btnServicios.Click
+        'codigo para ir a form7 (gestion servicios)
+        Form7.Show()
         Me.Close()
     End Sub
 End Class

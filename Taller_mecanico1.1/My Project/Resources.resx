@@ -130,8 +130,11 @@
   <data name="visualizar 2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\visualizar 2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="repuestos" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\repuestos.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ClientesForm6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ClientesForm6.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Form6Clientes" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Form6Clientes.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="siniestros" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\siniestros.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -157,8 +160,8 @@
   <data name="eliminar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\eliminar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Form6Clientes" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Form6Clientes.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="repuestos" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\repuestos.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="mx_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mx_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -181,7 +184,7 @@
   <data name="cerrar-sesion" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cerrar-sesion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ClientesForm6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ClientesForm6.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Form7Principal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Form7Principal.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
