@@ -20,6 +20,7 @@ Public Class Form7
             CargarEstado()
             CargarEmpleado()
             CargarCliente()
+            CargarEstadoServicio() ' Llamada para cargar el ComboBox cbxEstServ
 
         Catch ex As MySqlException
             'en caso de falla de conexion muestra mensaje de error
@@ -80,6 +81,8 @@ Public Class Form7
             MessageBox.Show("Error en la consulta: " & ex.Message)
         End Try
     End Sub
+
+
 
     Private Sub CargarEmpleado()
         Try
@@ -169,10 +172,8 @@ Public Class Form7
     Private Sub ShowPanel(selectedPanel As Panel)
         'Oculta todos los paneles primero
         pnlSolicitudServicio.Visible = False
-        'PanelSolicitud.Visible = False
+        PanelActualizacion.Visible = False
         'PanelGarantia.Visible = False
-        'PanelVentas.Visible = False
-        'panelHistorialVentas.Visible = False
 
         ' Muestra el panel seleccionado
         selectedPanel.Visible = True
@@ -368,4 +369,120 @@ Public Class Form7
         cbxEmpleado.SelectedIndex = -1
     End Sub
 
+    Private Sub ActualizarServicioToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ActualizarServicioToolStripMenuItem.Click
+        ShowPanel(PanelActualizacion)
+    End Sub
+
+    Private Sub CargarEstadoServicio()
+        Try
+            ' Consulta para obtener los estados de servicio de la base de datos
+            Dim query As String = "SELECT Estado FROM solicitudesservicio"
+            Dim command As New MySqlCommand(query, connection)
+
+            ' Ejecuta y lee la consulta
+            Dim reader As MySqlDataReader = command.ExecuteReader()
+
+            ' Limpiar el ComboBox
+            cbxEstServ.Items.Clear()
+
+            ' Agregar "Seleccione estado de servicio" como primer ítem
+            cbxEstServ.Items.Add("Seleccione estado de servicio")
+
+            ' Crear un HashSet para evitar duplicados
+            Dim estadoSet As New HashSet(Of String)
+
+            ' Agregar los estados al HashSet
+            While reader.Read()
+                Dim estado As String = reader("Estado").ToString()
+                estadoSet.Add(estado) ' Añadir al HashSet (evita duplicados automáticamente)
+            End While
+
+            reader.Close()
+
+            ' Agregar los elementos únicos del HashSet al ComboBox, evitando duplicados
+            For Each estadoItem In estadoSet
+                cbxEstServ.Items.Add(estadoItem)
+            Next
+
+            ' Para dejar como primer campo "Seleccione estado de servicio"
+            cbxEstServ.SelectedIndex = 0
+
+        Catch ex As MySqlException
+            ' Mensaje para mostrar error en caso de consulta fallida
+            MessageBox.Show("Error en la consulta: " & ex.Message)
+        End Try
+    End Sub
+
+
+    Private Sub btnBuscar_Click(sender As Object, e As EventArgs) Handles btnBuscar.Click
+        Dim connection As New MySqlConnection("Server=localhost;Database=taller;User ID=root;Password=Maju2223;SslMode=None;AllowPublicKeyRetrieval=True;")
+        Dim command As MySqlCommand
+        Dim reader As MySqlDataReader
+        Dim input As String = txtRutNom.Text.Trim() ' Valor ingresado en txtRutNom
+
+        ' Variables para almacenar las llaves
+        Dim rutEmpleado As String = String.Empty
+        Dim rutCliente As String = String.Empty
+
+        Try
+            connection.Open()
+
+            ' Consulta para obtener datos de las tablas clientes y solicitudesservicio
+            Dim query As String = "SELECT e.Rut AS EmpRut, e.Nombre AS EmpNombre, e.ApellidoP AS EmpApellidoP, c.Rut AS CliRut, c.Nombre AS CliNombre, c.ApellidoP AS CliApellidoP, " &
+                              "s.FechaSolicitud, s.DescripcionProblema, s.Estado " &
+                              "FROM empleados e " &
+                              "INNER JOIN solicitudesservicio s ON e.Rut = s.RutEmpleado " &
+                              "INNER JOIN clientes c ON c.Rut = s.Rut " &
+                              "WHERE e.Rut = @input OR e.Nombre LIKE @inputName OR c.Rut = @input OR c.Nombre LIKE @inputName"
+
+            command = New MySqlCommand(query, connection)
+            command.Parameters.AddWithValue("@input", input)
+            command.Parameters.AddWithValue("@inputName", "%" & input & "%") ' Búsqueda parcial por Nombre
+
+            ' Ejecutar la consulta
+            reader = command.ExecuteReader()
+
+            If reader.Read() Then
+                ' Si la búsqueda es exitosa, obtener los datos
+                rutEmpleado = reader("EmpRut").ToString() ' Guardamos el Rut del empleado
+                rutCliente = reader("CliRut").ToString() ' Guardamos el Rut del cliente
+
+                ' Obtener los nombres y apellidos
+                Dim nombreEmpleado As String = reader("EmpNombre").ToString()
+                Dim apellidoEmpleado As String = reader("EmpApellidoP").ToString()
+                Dim nombreCliente As String = reader("CliNombre").ToString()
+                Dim apellidoCliente As String = reader("CliApellidoP").ToString()
+                Dim fechaSolicitud As Date = reader("FechaSolicitud")
+                Dim descripcionProblema As String = reader("DescripcionProblema").ToString()
+                Dim estado As String = reader("Estado").ToString()
+
+                ' Pasar datos al formulario (solo mostrar nombres y apellidos)
+                txtRutCli.Text = nombreCliente & " " & apellidoCliente ' Nombre y ApellidoP del cliente al TextBox
+                FecSoli.Value = fechaSolicitud ' FechaSolicitud al DateTimePicker
+                txtDesc.Text = descripcionProblema ' DescripcionProblema al TextBox
+                cbxEstServ.Text = estado ' Estado al ComboBox
+
+                ' Verificar si los valores de empleado no son NULL antes de asignarlos
+                If Not IsDBNull(nombreEmpleado) AndAlso Not IsDBNull(apellidoEmpleado) Then
+                    txtEmpleado.Text = nombreEmpleado.ToString() & " " & apellidoEmpleado.ToString() ' Asignar Nombre y ApellidoP del empleado si no son NULL
+                Else
+                    txtEmpleado.Text = String.Empty ' Si es NULL, limpiar el TextBox
+                End If
+
+                ' Asignar los Ruts a variables internas (no mostrarlos en los campos de texto)
+                ' No se asignan al TextBox del formulario
+                ' rutEmpleado y rutCliente estarán disponibles para guardarse en la base de datos más tarde
+
+            Else
+                ' Mostrar mensaje si no se encuentra el cliente o la solicitud
+                MessageBox.Show("No se encontró información para este cliente o solicitud.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        Catch ex As Exception
+            ' Manejar errores
+            MessageBox.Show("Error: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            ' Cerrar la conexión
+            connection.Close()
+        End Try
+    End Sub
 End Class
