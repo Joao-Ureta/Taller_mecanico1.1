@@ -22,6 +22,11 @@ Partial Class Form7
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As DataGridViewCellStyle = New DataGridViewCellStyle()
         MenuStrip1 = New MenuStrip()
         GestiónDeServiciosToolStripMenuItem = New ToolStripMenuItem()
         SolicitudServiciosToolStripMenuItem = New ToolStripMenuItem()
@@ -48,6 +53,7 @@ Partial Class Form7
         PanelActualizacion = New Panel()
         Label3 = New Label()
         Panel3 = New Panel()
+        txtSolicitudID = New TextBox()
         btnActualizar = New Button()
         txtEmpleado = New TextBox()
         cbxEstServ = New ComboBox()
@@ -65,6 +71,25 @@ Partial Class Form7
         txtRutNom = New TextBox()
         lblCloiente = New Label()
         lblTituloActualizacion = New Label()
+        PanelListado = New Panel()
+        Label5 = New Label()
+        Label4 = New Label()
+        Panel4 = New Panel()
+        DataGridView1 = New DataGridView()
+        ID = New DataGridViewTextBoxColumn()
+        Rut = New DataGridViewTextBoxColumn()
+        FechaSolicitud = New DataGridViewTextBoxColumn()
+        DescripcionProblema = New DataGridViewTextBoxColumn()
+        Estado = New DataGridViewTextBoxColumn()
+        Siniestroid = New DataGridViewTextBoxColumn()
+        RutEmplado = New DataGridViewTextBoxColumn()
+        lblTitulo = New Label()
+        Panel1 = New Panel()
+        btnVerTodo = New Button()
+        cbxBuscarEstado = New ComboBox()
+        btnBuscarCli = New Button()
+        txtCliente = New TextBox()
+        lblCliente = New Label()
         MenuStrip1.SuspendLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         pnlSolicitudServicio.SuspendLayout()
@@ -73,6 +98,10 @@ Partial Class Form7
         PanelActualizacion.SuspendLayout()
         Panel3.SuspendLayout()
         Panel2.SuspendLayout()
+        PanelListado.SuspendLayout()
+        Panel4.SuspendLayout()
+        CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
+        Panel1.SuspendLayout()
         SuspendLayout()
         ' 
         ' MenuStrip1
@@ -135,7 +164,7 @@ Partial Class Form7
         btnVolver.ForeColor = Color.White
         btnVolver.Image = My.Resources.Resources.volver
         btnVolver.ImageAlign = ContentAlignment.MiddleRight
-        btnVolver.Location = New Point(420, 799)
+        btnVolver.Location = New Point(424, 767)
         btnVolver.Name = "btnVolver"
         btnVolver.Padding = New Padding(0, 0, 15, 0)
         btnVolver.Size = New Size(159, 48)
@@ -150,7 +179,7 @@ Partial Class Form7
         pnlSolicitudServicio.Controls.Add(lblTituloSolicitudServicio)
         pnlSolicitudServicio.Location = New Point(69, 48)
         pnlSolicitudServicio.Name = "pnlSolicitudServicio"
-        pnlSolicitudServicio.Size = New Size(860, 727)
+        pnlSolicitudServicio.Size = New Size(860, 713)
         pnlSolicitudServicio.TabIndex = 20
         ' 
         ' Label1
@@ -328,7 +357,7 @@ Partial Class Form7
         PanelActualizacion.Controls.Add(lblTituloActualizacion)
         PanelActualizacion.Location = New Point(67, 45)
         PanelActualizacion.Name = "PanelActualizacion"
-        PanelActualizacion.Size = New Size(877, 730)
+        PanelActualizacion.Size = New Size(877, 707)
         PanelActualizacion.TabIndex = 21
         PanelActualizacion.Visible = False
         ' 
@@ -344,6 +373,7 @@ Partial Class Form7
         ' Panel3
         ' 
         Panel3.BorderStyle = BorderStyle.Fixed3D
+        Panel3.Controls.Add(txtSolicitudID)
         Panel3.Controls.Add(btnActualizar)
         Panel3.Controls.Add(txtEmpleado)
         Panel3.Controls.Add(cbxEstServ)
@@ -357,8 +387,17 @@ Partial Class Form7
         Panel3.Controls.Add(lblCli)
         Panel3.Location = New Point(109, 315)
         Panel3.Name = "Panel3"
-        Panel3.Size = New Size(659, 387)
+        Panel3.Size = New Size(659, 365)
         Panel3.TabIndex = 34
+        ' 
+        ' txtSolicitudID
+        ' 
+        txtSolicitudID.Location = New Point(270, 28)
+        txtSolicitudID.Multiline = True
+        txtSolicitudID.Name = "txtSolicitudID"
+        txtSolicitudID.Size = New Size(93, 28)
+        txtSolicitudID.TabIndex = 52
+        txtSolicitudID.Visible = False
         ' 
         ' btnActualizar
         ' 
@@ -367,7 +406,7 @@ Partial Class Form7
         btnActualizar.ForeColor = Color.White
         btnActualizar.Image = My.Resources.Resources.modificar
         btnActualizar.ImageAlign = ContentAlignment.MiddleRight
-        btnActualizar.Location = New Point(218, 302)
+        btnActualizar.Location = New Point(227, 278)
         btnActualizar.Name = "btnActualizar"
         btnActualizar.Padding = New Padding(0, 0, 30, 0)
         btnActualizar.Size = New Size(221, 61)
@@ -540,12 +579,233 @@ Partial Class Form7
         lblTituloActualizacion.TabIndex = 31
         lblTituloActualizacion.Text = "Actualización de servicios"
         ' 
+        ' PanelListado
+        ' 
+        PanelListado.Controls.Add(Label5)
+        PanelListado.Controls.Add(Label4)
+        PanelListado.Controls.Add(Panel4)
+        PanelListado.Controls.Add(lblTitulo)
+        PanelListado.Controls.Add(Panel1)
+        PanelListado.Location = New Point(21, 42)
+        PanelListado.Name = "PanelListado"
+        PanelListado.Size = New Size(977, 719)
+        PanelListado.TabIndex = 22
+        PanelListado.Visible = False
+        ' 
+        ' Label5
+        ' 
+        Label5.AutoSize = True
+        Label5.Location = New Point(48, 95)
+        Label5.Name = "Label5"
+        Label5.Size = New Size(171, 20)
+        Label5.TabIndex = 23
+        Label5.Text = "Busqueda de servicios"
+        ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.Location = New Point(49, 239)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(154, 20)
+        Label4.TabIndex = 0
+        Label4.Text = "Listado de servicios"
+        ' 
+        ' Panel4
+        ' 
+        Panel4.BorderStyle = BorderStyle.Fixed3D
+        Panel4.Controls.Add(DataGridView1)
+        Panel4.Location = New Point(24, 251)
+        Panel4.Name = "Panel4"
+        Panel4.Size = New Size(930, 449)
+        Panel4.TabIndex = 19
+        ' 
+        ' DataGridView1
+        ' 
+        DataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = SystemColors.Control
+        DataGridViewCellStyle1.Font = New Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle1.ForeColor = SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = DataGridViewTriState.True
+        DataGridView1.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = SystemColors.Control
+        DataGridViewCellStyle2.Font = New Font("Segoe UI", 9F)
+        DataGridViewCellStyle2.ForeColor = SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
+        DataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridView1.Columns.AddRange(New DataGridViewColumn() {ID, Rut, FechaSolicitud, DescripcionProblema, Estado, Siniestroid, RutEmplado})
+        DataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = SystemColors.Window
+        DataGridViewCellStyle3.Font = New Font("Segoe UI", 9F)
+        DataGridViewCellStyle3.ForeColor = Color.White
+        DataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = DataGridViewTriState.False
+        DataGridView1.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridView1.Location = New Point(20, 53)
+        DataGridView1.Name = "DataGridView1"
+        DataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = SystemColors.Control
+        DataGridViewCellStyle4.Font = New Font("Segoe UI", 9F)
+        DataGridViewCellStyle4.ForeColor = SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = DataGridViewTriState.True
+        DataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle4
+        DataGridView1.RowHeadersWidth = 51
+        DataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = SystemColors.Control
+        DataGridViewCellStyle5.Font = New Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        DataGridViewCellStyle5.ForeColor = SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = DataGridViewTriState.True
+        DataGridView1.RowsDefaultCellStyle = DataGridViewCellStyle5
+        DataGridView1.Size = New Size(888, 337)
+        DataGridView1.TabIndex = 25
+        ' 
+        ' ID
+        ' 
+        ID.HeaderText = "ID"
+        ID.MinimumWidth = 6
+        ID.Name = "ID"
+        ID.Width = 40
+        ' 
+        ' Rut
+        ' 
+        Rut.HeaderText = "Rut cliente"
+        Rut.MinimumWidth = 6
+        Rut.Name = "Rut"
+        Rut.Width = 125
+        ' 
+        ' FechaSolicitud
+        ' 
+        FechaSolicitud.HeaderText = "Fecha solicitud"
+        FechaSolicitud.MinimumWidth = 6
+        FechaSolicitud.Name = "FechaSolicitud"
+        FechaSolicitud.Width = 125
+        ' 
+        ' DescripcionProblema
+        ' 
+        DescripcionProblema.HeaderText = "Descripción"
+        DescripcionProblema.MinimumWidth = 6
+        DescripcionProblema.Name = "DescripcionProblema"
+        DescripcionProblema.Width = 220
+        ' 
+        ' Estado
+        ' 
+        Estado.HeaderText = "Estado servicio"
+        Estado.MinimumWidth = 6
+        Estado.Name = "Estado"
+        Estado.Width = 125
+        ' 
+        ' Siniestroid
+        ' 
+        Siniestroid.HeaderText = "ID siniestro"
+        Siniestroid.MinimumWidth = 6
+        Siniestroid.Name = "Siniestroid"
+        Siniestroid.Width = 80
+        ' 
+        ' RutEmplado
+        ' 
+        RutEmplado.HeaderText = "Empleado"
+        RutEmplado.MinimumWidth = 6
+        RutEmplado.Name = "RutEmplado"
+        RutEmplado.Width = 158
+        ' 
+        ' lblTitulo
+        ' 
+        lblTitulo.AutoSize = True
+        lblTitulo.Font = New Font("Arial Black", 24F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblTitulo.ForeColor = SystemColors.ButtonHighlight
+        lblTitulo.Location = New Point(211, 23)
+        lblTitulo.Name = "lblTitulo"
+        lblTitulo.Size = New Size(543, 56)
+        lblTitulo.TabIndex = 18
+        lblTitulo.Text = "solicitudes de servicios"
+        ' 
+        ' Panel1
+        ' 
+        Panel1.BorderStyle = BorderStyle.Fixed3D
+        Panel1.Controls.Add(btnVerTodo)
+        Panel1.Controls.Add(cbxBuscarEstado)
+        Panel1.Controls.Add(btnBuscarCli)
+        Panel1.Controls.Add(txtCliente)
+        Panel1.Controls.Add(lblCliente)
+        Panel1.Location = New Point(24, 105)
+        Panel1.Name = "Panel1"
+        Panel1.Size = New Size(930, 118)
+        Panel1.TabIndex = 17
+        ' 
+        ' btnVerTodo
+        ' 
+        btnVerTodo.BackColor = Color.DimGray
+        btnVerTodo.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnVerTodo.ForeColor = Color.White
+        btnVerTodo.Image = My.Resources.Resources.visualizar_2
+        btnVerTodo.ImageAlign = ContentAlignment.MiddleRight
+        btnVerTodo.Location = New Point(778, 35)
+        btnVerTodo.Name = "btnVerTodo"
+        btnVerTodo.Padding = New Padding(0, 0, 20, 0)
+        btnVerTodo.Size = New Size(138, 36)
+        btnVerTodo.TabIndex = 24
+        btnVerTodo.Text = "Ver todo"
+        btnVerTodo.UseVisualStyleBackColor = False
+        ' 
+        ' cbxBuscarEstado
+        ' 
+        cbxBuscarEstado.FormattingEnabled = True
+        cbxBuscarEstado.Location = New Point(538, 38)
+        cbxBuscarEstado.Name = "cbxBuscarEstado"
+        cbxBuscarEstado.Size = New Size(221, 28)
+        cbxBuscarEstado.TabIndex = 22
+        ' 
+        ' btnBuscarCli
+        ' 
+        btnBuscarCli.BackColor = Color.DimGray
+        btnBuscarCli.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        btnBuscarCli.ForeColor = Color.White
+        btnBuscarCli.Image = My.Resources.Resources.buscar
+        btnBuscarCli.ImageAlign = ContentAlignment.MiddleRight
+        btnBuscarCli.Location = New Point(401, 34)
+        btnBuscarCli.Name = "btnBuscarCli"
+        btnBuscarCli.Padding = New Padding(0, 0, 20, 0)
+        btnBuscarCli.Size = New Size(123, 35)
+        btnBuscarCli.TabIndex = 21
+        btnBuscarCli.Text = "Buscar"
+        btnBuscarCli.UseVisualStyleBackColor = False
+        ' 
+        ' txtCliente
+        ' 
+        txtCliente.Location = New Point(98, 38)
+        txtCliente.Multiline = True
+        txtCliente.Name = "txtCliente"
+        txtCliente.Size = New Size(279, 28)
+        txtCliente.TabIndex = 2
+        ' 
+        ' lblCliente
+        ' 
+        lblCliente.AutoSize = True
+        lblCliente.Font = New Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblCliente.ForeColor = Color.White
+        lblCliente.Location = New Point(3, 38)
+        lblCliente.Name = "lblCliente"
+        lblCliente.Size = New Size(83, 28)
+        lblCliente.TabIndex = 1
+        lblCliente.Text = "Cliente:"
+        ' 
         ' Form7
         ' 
         AutoScaleDimensions = New SizeF(9F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.FromArgb(CByte(35), CByte(35), CByte(35))
-        ClientSize = New Size(1019, 859)
+        ClientSize = New Size(1019, 828)
+        Controls.Add(PanelListado)
         Controls.Add(PanelActualizacion)
         Controls.Add(pnlSolicitudServicio)
         Controls.Add(btnVolver)
@@ -570,6 +830,12 @@ Partial Class Form7
         Panel3.PerformLayout()
         Panel2.ResumeLayout(False)
         Panel2.PerformLayout()
+        PanelListado.ResumeLayout(False)
+        PanelListado.PerformLayout()
+        Panel4.ResumeLayout(False)
+        CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
+        Panel1.ResumeLayout(False)
+        Panel1.PerformLayout()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -617,5 +883,25 @@ Partial Class Form7
     Friend WithEvents cbxEstServ As ComboBox
     Friend WithEvents txtDesc As TextBox
     Friend WithEvents btnActualizar As Button
+    Friend WithEvents txtSolicitudID As TextBox
+    Friend WithEvents PanelListado As Panel
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents cbxBuscarEstado As ComboBox
+    Friend WithEvents btnBuscarCli As Button
+    Friend WithEvents txtCliente As TextBox
+    Friend WithEvents lblCliente As Label
+    Friend WithEvents lblTitulo As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents btnVerTodo As Button
+    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents ID As DataGridViewTextBoxColumn
+    Friend WithEvents Rut As DataGridViewTextBoxColumn
+    Friend WithEvents FechaSolicitud As DataGridViewTextBoxColumn
+    Friend WithEvents DescripcionProblema As DataGridViewTextBoxColumn
+    Friend WithEvents Estado As DataGridViewTextBoxColumn
+    Friend WithEvents Siniestroid As DataGridViewTextBoxColumn
+    Friend WithEvents RutEmplado As DataGridViewTextBoxColumn
 
 End Class
